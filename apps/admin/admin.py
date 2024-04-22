@@ -28,6 +28,7 @@ class ProductImageStackedInline(StackedInline):
     min_num = 1
     extra = 0
     fields = ['image']
+    # list_select_related = ['product_id']
 
 
 @admin.register(Product)

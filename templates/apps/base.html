@@ -74,7 +74,8 @@
                         {#                        </a>#}
                         <!-- parent pages-->
                         {% for category in categories %}
-                            <a class="nav-link {% if category.subcategory.exists %}dropdown-indicator{% endif %}" href="#{{ category.slug }}" role="button"
+                            <a class="nav-link {% if category.subcategory.exists %}dropdown-indicator{% endif %}"
+                               href="#{{ category.slug }}" role="button"
                                data-bs-toggle="collapse" aria-expanded="false"
                                aria-controls="{{ category.slug }}">
                                 <div class="d-flex align-items-center">
@@ -118,6 +119,81 @@
                                 {% endfor %}
                             </ul>
                         {% endfor %}
+                        {% if user.is_authenticated %}
+                            <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+                                <div class="navbar-vertical-content scrollbar">
+                                    <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
+                                        <li class="nav-item">
+                                            <ul class="nav collapse show" id="dashboard">
+
+                                            </ul>
+
+
+                                            <hr class="mb-0 navbar-vertical-divider"/>
+                                            <ul class="nav collapse show" id="dashboard">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="/admin_page/market/"
+                                                       aria-expanded="false">
+                                                        <div class="d-flex align-items-center"><span
+                                                                class="nav-link-text ps-1">Market</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="/admin_page/urls"
+                                                       aria-expanded="false">
+                                                        <div class="d-flex align-items-center"><span
+                                                                class="nav-link-text ps-1">Oqim</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="/admin_page/stats"
+                                                       aria-expanded="false">
+                                                        <div class="d-flex align-items-center"><span
+                                                                class="nav-link-text ps-1">Statistika</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="/admin_page/requests"
+                                                       aria-expanded="false">
+                                                        <div class="d-flex align-items-center"><span
+                                                                class="nav-link-text ps-1">So'rovlar</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="/admin_page/competition"
+                                                       aria-expanded="false">
+                                                        <div class="d-flex align-items-center"><span
+                                                                class="nav-link-text ps-1">Konkurs</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="/admin_page/withdraw"
+                                                       aria-expanded="false">
+                                                        <div class="d-flex align-items-center"><span
+                                                                class="nav-link-text ps-1">To'lov</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="/admin_page/diagrams"
+                                                       aria-expanded="false">
+                                                        <div class="d-flex align-items-center"><span
+                                                                class="nav-link-text ps-1">Diagrammalar</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
@@ -593,9 +669,9 @@
         <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
                 <div class="col-12 col-sm-auto text-center">
-                    <p class="mb-0 text-600">Thank you for creating with Falcon <span
-                            class="d-none d-sm-inline-block">| </span><br class="d-sm-none"> 2021 © <a
-                            href="https://themewagon.com">Themewagon</a></p>
+                    <p class="mb-0 text-600">Bizning xizmatlarimizdan foydalanganingiz uchun tashakkur<span
+                            class="d-none d-sm-inline-block">| </span><br class="d-sm-none"> 2024 © <a
+                            href="https://dilmurod.live">Dilmurod Dev</a></p>
                 </div>
                 <div class="col-12 col-sm-auto text-center">
                     <p class="mb-0 text-600">Designed by Kholmatoff Dilmurod</p>
@@ -676,7 +752,8 @@
                                  data-fa-transform="grow-8" aria-hidden="true" focusable="false"
                                  data-prefix="fab" data-icon="facebook-square" role="img"
                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""
-                                 style="transform-origin: 0.4375em 0.5em;">
+                                 style="
+                                 transform-origin: 0.4375em 0.5em;">
                                 <g transform="translate(224 256)">
                                     <g transform="translate(0, 0)  scale(1.5, 1.5)  rotate(0 0 0)">
                                         <path fill="currentColor"
@@ -705,6 +782,9 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
     <script src="/static/app/js/regions_filter.js"></script>
+    <script src="{% static 'apps/assets/js/config.js' %}"></script>
+    <script src="{% static 'apps/assets/js/lightbox.min.js' %}"></script>
+    <script src="{% static 'apps/vendors/overlayscrollbars/OverlayScrollbars.min.js' %}"></script>
     <script>
         $(function () {
             $('select').multipleSelect({
@@ -716,4 +796,6 @@
             })
         })
     </script>
+    {% block javascript %}
+    {% endblock %}
 {% endblock %}

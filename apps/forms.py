@@ -1,10 +1,11 @@
 import re
 
 from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelChoiceField
 
-from apps.models import User, Order
+from apps.models import User, Order, Thread, Product
 
 
 class UserForm(ModelForm):
@@ -54,3 +55,11 @@ class UserSettingsForm(ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'phone_number', 'intro']
+
+
+class ThreadModelForm(LoginRequiredMixin, ModelForm):
+    product = ModelChoiceField(queryset=Product.objects.all())
+
+    class Meta:
+        model = Thread
+        fields = ['name', 'product']

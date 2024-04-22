@@ -1,15 +1,13 @@
-{% load static %}
-{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>
-        Operatorlar bo'limi
+        Operatorlar bo'limi - HOLD
         - alijahon.uz</title>
-    <link rel="stylesheet" href="{% static 'apps/bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'apps/bootstrap/css/font-awesome.min.css' %}">
-    <link href="{% static 'apps/bootstrap/css/multiple-select.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="/static/app/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/app/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css" rel="stylesheet">
     <style>
         select {
             width: 100%;
@@ -22,9 +20,6 @@
     <nav class="navbar navbar-dark bg-dark text-white" style="height: 10%;">
 
 
-        <div style="margin-left: 15px;"><a href="/operator/prodcut_add">Zakaz + </a></div>
-
-
         <div>Buyurtmalar</div>
         <h4>ID: 721 </h4>
         <a href="/admin_page" class="btn btn-danger btn-sm">Asosiy panel</a>
@@ -33,7 +28,7 @@
         <div class="col-md-2 h-70 text-center" style="background-color: #38ffae; padding-right: 0; position:absolute;">
             <div class="list-group text-light w-100 h-100">
                 <a style="height: 13%" href="/operator/new"
-                   class="btn btn-primary list-group-item text-dark mt-1  active ">
+                   class="btn btn-primary list-group-item text-dark mt-1 ">
                     <div>
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     </div>
@@ -107,7 +102,6 @@
         <div class="col-md-10" style="margin-left: 16%;">
 
             <div class="bg-light w-75 m-auto mt-5">
-
                 <form method="GET">
                     <div>
                         <p>
@@ -1289,691 +1283,275 @@
 
 
                 <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">EMS oyoq masajyor - 69000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1745974</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998932520255</li>
-                            <li class="">Client: Нодирбой Уткиров - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 69000 so'm + <p style="color: red; display: inline;">
-                                AKSIYA</p></li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 15:14</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 20:35</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1745974" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1745974">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">EMS oyoq masajyor - 69000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1745997</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998932520255</li>
-                            <li class="">Client: Yarov Batir - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 69000 so'm + <p style="color: red; display: inline;">
-                                AKSIYA</p></li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 15:20</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 20:35</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1745997" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1745997">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">Kirka 45ml - 47000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746154</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998336331999</li>
-                            <li class="">Client: Исломбек - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 47000 so'm <strong>+ 30000</strong> so'm</li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 15:48</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 14:26</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746154" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746154">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">EMS oyoq masajyor - 69000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746296</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998932520255</li>
-                            <li class="">Client: khasan0vvv - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 69000 so'm + <p style="color: red; display: inline;">
-                                AKSIYA</p></li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 16:15</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 20:34</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746296" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746296">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">Genger sovun - 59000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746385</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998946131440</li>
-                            <li class="">Client: Abbos - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 59000 so'm <strong>+ 30000</strong> so'm</li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 16:31</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:09</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746385" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746385">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">Varikoz Naski - 55000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746492</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998942414343</li>
-                            <li class="">Client: Нодира - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 55000 so'm <strong>+ 30000</strong> so'm</li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 16:48</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:31</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746492" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746492">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">FRESH Meni blender - 89000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746524</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998335726021</li>
-                            <li class="">Client: - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 89000 so'm <strong>+ 30000</strong> so'm</li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 16:54</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 21:19</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746524" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746524">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">EMS oyoq masajyor - 69000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746542</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998932520255</li>
-                            <li class="">Client: Асилбек - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 69000 so'm + <p style="color: red; display: inline;">
-                                AKSIYA</p></li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 16:59</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:31</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746542" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746542">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">EMS oyoq masajyor - 69000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746558</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998932520255</li>
-                            <li class="">Client: Muhammad aliy - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 69000 so'm + <p style="color: red; display: inline;">
-                                AKSIYA</p></li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:02</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 20:34</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746558" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746558">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
                     <div class="card-body">
                         <h2 class="card-title">UZBEKCHA USTOZ JOYNOMOZ BOLALAR UCHUN - 289000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746613</h3>
                         <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998911408028</li>
-                            <li class="">Client: - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
+                            <li class="">Client: - +998936706524</li>
+                            <li class="">Address: Viloyatni tanlang</li>
                             <li class="">Narxi: 289000 so'm</li>
-
                             <li class="">Soni: 1ta</li>
+                            <li class="">Komment: Аждания</li>
+                            <li class="">ID: #1746613</li>
                             <li class="">Vaqti: 6-Fevral, 2024-yil 17:11</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 12:33</li>
-                            <li class="">Holati: yangi</li>
+                            <li class="">Yangilangan vaqti: 1-Aprel, 2024-yil 21:29</li>
                         </ul>
-                        <a href="/operator/order/1746613" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746613">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
+                        <a href="/operator/order/1746613" class="btn btn-primary">Holatini o'zgartirish</a>
                     </div>
                 </div>
 
                 <div class="card border-dark mt-5">
-
                     <div class="card-body">
-                        <h2 class="card-title">Video regstrator - 169000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746622</h3>
+                        <h2 class="card-title">RAPM - 109000 so'm</h2>
                         <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998977223467</li>
-                            <li class="">Client: Toxir - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 169000 so'm <strong>+ 30000</strong> so'm</li>
-
+                            <li class="">Client: Наргиза - +998909545251</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: 109000 so'm <strong>+ 30000</strong> so'm</li>
                             <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:12</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 22:09</li>
-                            <li class="">Holati: yangi</li>
+                            <li class="">Komment: Kutarmadi</li>
+                            <li class="">ID: #1744375</li>
+                            <li class="">Vaqti: 6-Fevral, 2024-yil 9:36</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 14:16</li>
                         </ul>
-                        <a href="/operator/order/1746622" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746622">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
+                        <a href="/operator/order/1744375" class="btn btn-primary">Holatini o'zgartirish</a>
                     </div>
                 </div>
 
                 <div class="card border-dark mt-5">
-
                     <div class="card-body">
-                        <h2 class="card-title">KOMPYUTOR NURIDAN XIMOYALOVCHI ACHKI - 69000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746657</h3>
+                        <h2 class="card-title">vetik - 197000 so'm</h2>
                         <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998901268801</li>
-                            <li class="">Client: Dilshod - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 69000 so'm <strong>+ 30000</strong> so'm</li>
-
+                            <li class="">Client: зилола - +998976691050</li>
+                            <li class="">Address: tashkent</li>
+                            <li class="">Narxi: 197000 so'm <strong>+ 30000</strong> so'm</li>
                             <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:17</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 21:01</li>
-                            <li class="">Holati: yangi</li>
+                            <li class="">Komment:</li>
+                            <li class="">ID: #1751678</li>
+                            <li class="">Vaqti: 7-Fevral, 2024-yil 11:20</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 11:20</li>
                         </ul>
-                        <a href="/operator/order/1746657" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746657">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
+                        <a href="/operator/order/1751678" class="btn btn-primary">Holatini o'zgartirish</a>
                     </div>
                 </div>
 
                 <div class="card border-dark mt-5">
-
                     <div class="card-body">
-                        <h2 class="card-title">Genger sovun - 59000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746684</h3>
+                        <h2 class="card-title">Tetan gel - 149000 so'm</h2>
                         <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998946131440</li>
-                            <li class="">Client: bexruz - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 59000 so'm <strong>+ 30000</strong> so'm</li>
-
+                            <li class="">Client: Zoxit - ++998949625454</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: 149000 so'm</li>
                             <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:21</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:08</li>
-                            <li class="">Holati: yangi</li>
+                            <li class="">Komment: Kotarmadi
+                                Ochirilgan
+                            </li>
+                            <li class="">ID: #1745342</li>
+                            <li class="">Vaqti: 6-Fevral, 2024-yil 13:20</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 11:04</li>
                         </ul>
-                        <a href="/operator/order/1746684" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746684">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
+                        <a href="/operator/order/1745342" class="btn btn-primary">Holatini o'zgartirish</a>
                     </div>
                 </div>
 
                 <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">Slim body ozdiruvchi ayollar uchun - 59000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746760</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998330404940</li>
-                            <li class="">Client: mustafa01 - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 59000 so'm <strong>+ 30000</strong> so'm</li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:34</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 9:35</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746760" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746760">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">KOMPYUTOR NURIDAN XIMOYALOVCHI ACHKI - 69000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746805</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998901268801</li>
-                            <li class="">Client: jahongir dushamov - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 69000 so'm <strong>+ 30000</strong> so'm</li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:39</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 21:00</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746805" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746805">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card border-dark mt-5">
-
                     <div class="card-body">
                         <h2 class="card-title">FRESH Meni blender - 89000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746809</h3>
                         <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998335726021</li>
-                            <li class="">Client: 901748392 - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
+                            <li class="">Client: 976381023 - +998976381023</li>
+                            <li class="">Address: tashkent</li>
                             <li class="">Narxi: 89000 so'm <strong>+ 30000</strong> so'm</li>
-
                             <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:39</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 21:19</li>
-                            <li class="">Holati: yangi</li>
+                            <li class="">Komment:</li>
+                            <li class="">ID: #1751152</li>
+                            <li class="">Vaqti: 7-Fevral, 2024-yil 9:53</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 9:53</li>
                         </ul>
-                        <a href="/operator/order/1746809" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746809">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
+                        <a href="/operator/order/1751152" class="btn btn-primary">Holatini o'zgartirish</a>
                     </div>
                 </div>
 
                 <div class="card border-dark mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">FRESH Meni blender - 79000 so'm</h2>
+                        <ul class="text-muted">
+                            <li class="">Client: . - +998936161942</li>
+                            <li class="">Address: tashkent</li>
+                            <li class="">Narxi: 79000 so'm <strong>+ 30000</strong> so'm + <p
+                                    style="color: red; display: inline;">
+                                AKSIYA</p></li>
+                            <li class="">Soni: 1ta</li>
+                            <li class="">Komment:</li>
+                            <li class="">ID: #1750859</li>
+                            <li class="">Vaqti: 7-Fevral, 2024-yil 9:18</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 9:18</li>
+                        </ul>
+                        <a href="/operator/order/1750859" class="btn btn-primary">Holatini o'zgartirish</a>
+                    </div>
+                </div>
 
+                <div class="card border-dark mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">EMS oyoq masajyor - 69000 so'm</h2>
+                        <ul class="text-muted">
+                            <li class="">Client: Асилбек - ++998947366616</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: 69000 so'm + <p style="color: red; display: inline;">
+                                AKSIYA</p></li>
+                            <li class="">Soni: 1ta</li>
+                            <li class="">Komment: Ocq
+                                Kutarmayapti
+                            </li>
+                            <li class="">ID: #1746542</li>
+                            <li class="">Vaqti: 6-Fevral, 2024-yil 16:59</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:31</li>
+                        </ul>
+                        <a href="/operator/order/1746542" class="btn btn-primary">Holatini o'zgartirish</a>
+                    </div>
+                </div>
+
+                <div class="card border-dark mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">Bolalar uchun Proyektor - 99000 so'm</h2>
+                        <ul class="text-muted">
+                            <li class="">Client: - +998907442380</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: 99000 so'm <strong>+ 30000</strong> so'm</li>
+                            <li class="">Soni: 1ta</li>
+                            <li class="">Komment: Kutar
+                                Maslahatlashadi
+                            </li>
+                            <li class="">ID: #1740028</li>
+                            <li class="">Vaqti: 5-Fevral, 2024-yil 13:40</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:31</li>
+                        </ul>
+                        <a href="/operator/order/1740028" class="btn btn-primary">Holatini o'zgartirish</a>
+                    </div>
+                </div>
+
+                <div class="card border-dark mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">Collagen shampun - 99000 so'm</h2>
+                        <ul class="text-muted">
+                            <li class="">Client: malohat - ++998931975597</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: 99000 so'm <strong>+ 30000</strong> so'm</li>
+                            <li class="">Soni: 1ta</li>
+                            <li class="">Komment: Kdi</li>
+                            <li class="">ID: #1746151</li>
+                            <li class="">Vaqti: 6-Fevral, 2024-yil 15:48</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:13</li>
+                        </ul>
+                        <a href="/operator/order/1746151" class="btn btn-primary">Holatini o'zgartirish</a>
+                    </div>
+                </div>
+
+                <div class="card border-dark mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">Genger sovun - 59000 so'm</h2>
+                        <ul class="text-muted">
+                            <li class="">Client: Abbos - ++998991437270</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: 59000 so'm <strong>+ 30000</strong> so'm</li>
+                            <li class="">Soni: 1ta</li>
+                            <li class="">Komment: Uzi tell qiladi</li>
+                            <li class="">ID: #1746385</li>
+                            <li class="">Vaqti: 6-Fevral, 2024-yil 16:31</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:09</li>
+                        </ul>
+                        <a href="/operator/order/1746385" class="btn btn-primary">Holatini o'zgartirish</a>
+                    </div>
+                </div>
+
+                <div class="card border-dark mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">FORMULA ATIR - 86000 so'm</h2>
+                        <ul class="text-muted">
+                            <li class="">Client: nurmuxammad - ++998916991104</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: 86000 so'm <strong>+ 30000</strong> so'm</li>
+                            <li class="">Soni: 1ta</li>
+                            <li class="">Komment: Kutarmadi
+                                O‘chu
+                                Oʻchiq
+                            </li>
+                            <li class="">ID: #1741002</li>
+                            <li class="">Vaqti: 5-Fevral, 2024-yil 17:06</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:04</li>
+                        </ul>
+                        <a href="/operator/order/1741002" class="btn btn-primary">Holatini o'zgartirish</a>
+                    </div>
+                </div>
+
+                <div class="card border-dark mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">snail krem - 99000 so'm</h2>
+                        <ul class="text-muted">
+                            <li class="">Client: - +998908861818</li>
+                            <li class="">Address: tashkent</li>
+                            <li class="">Narxi: 99000 so'm</li>
+                            <li class="">Soni: 1ta</li>
+                            <li class="">Komment:</li>
+                            <li class="">ID: #1749570</li>
+                            <li class="">Vaqti: 7-Fevral, 2024-yil 0:31</li>
+                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 0:31</li>
+                        </ul>
+                        <a href="/operator/order/1749570" class="btn btn-primary">Holatini o'zgartirish</a>
+                    </div>
+                </div>
+
+                <div class="card border-dark mt-5">
                     <div class="card-body">
                         <h2 class="card-title">KOMPYUTOR NURIDAN XIMOYALOVCHI ACHKI - 69000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746827</h3>
                         <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998901268801</li>
-                            <li class="">Client: Abdulaziz Yusupov - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
+                            <li class="">Client: Bekzod - ++998995965052</li>
+                            <li class="">Address: Viloyatni tanlang</li>
                             <li class="">Narxi: 69000 so'm <strong>+ 30000</strong> so'm</li>
-
                             <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:41</li>
-                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 21:00</li>
-                            <li class="">Holati: yangi</li>
+                            <li class="">Komment: Kutarmayapti</li>
+                            <li class="">ID: #1746801</li>
+                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:39</li>
+                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 20:59</li>
                         </ul>
-                        <a href="/operator/order/1746827" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746827">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
+                        <a href="/operator/order/1746801" class="btn btn-primary">Holatini o'zgartirish</a>
                     </div>
                 </div>
 
                 <div class="card border-dark mt-5">
-
                     <div class="card-body">
-                        <h2 class="card-title">FORMULA ATIR - 86000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746830</h3>
+                        <h2 class="card-title">Gemaroy kasalligiga qarshi samarali vosita - 119000 so'm</h2>
                         <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998946131440</li>
-                            <li class="">Client: Amirjon - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 86000 so'm <strong>+ 30000</strong> so'm</li>
-
+                            <li class="">Client: Hudoberdi - ++998990271868</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: 119000 so'm</li>
                             <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:42</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:07</li>
-                            <li class="">Holati: yangi</li>
+                            <li class="">Komment: Kutarmadi</li>
+                            <li class="">ID: #1745339</li>
+                            <li class="">Vaqti: 6-Fevral, 2024-yil 13:20</li>
+                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 20:49</li>
                         </ul>
-                        <a href="/operator/order/1746830" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746830">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
+                        <a href="/operator/order/1745339" class="btn btn-primary">Holatini o'zgartirish</a>
                     </div>
                 </div>
 
                 <div class="card border-dark mt-5">
-
                     <div class="card-body">
-                        <h2 class="card-title">FORMULA ATIR - 86000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746833</h3>
+                        <h2 class="card-title">EMS oyoq masajyor - 69000 so'm</h2>
                         <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998946131440</li>
-                            <li class="">Client: Komil - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 86000 so'm <strong>+ 30000</strong> so'm</li>
-
+                            <li class="">Client: Нодирбой Уткиров - ++998903345112</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: 69000 so'm + <p style="color: red; display: inline;">
+                                AKSIYA</p></li>
                             <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:43</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:07</li>
-                            <li class="">Holati: yangi</li>
+                            <li class="">Komment: Òchirilgan</li>
+                            <li class="">ID: #1745974</li>
+                            <li class="">Vaqti: 6-Fevral, 2024-yil 15:14</li>
+                            <li class="">Yangilangan vaqti: 6-Fevral, 2024-yil 20:35</li>
                         </ul>
-                        <a href="/operator/order/1746833" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746833">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
+                        <a href="/operator/order/1745974" class="btn btn-primary">Holatini o'zgartirish</a>
                     </div>
                 </div>
-
-                <div class="card border-dark mt-5">
-
-                    <div class="card-body">
-                        <h2 class="card-title">Quloq tozalagich - 56000 so'm</h2>
-                        <h3 class="card-title text-danger">ZAKAZ ID: #1746834</h3>
-                        <ul class="text-muted">
-                            <li class="">Reklama tarqatuvchi ID: 998946131440</li>
-                            <li class="">Client: Dilshodbek - +9989XXXXXXXX</li>
-                            <li class="">Address: Viloyatni tanlang None</li>
-                            <li class="">Narxi: 56000 so'm <strong>+ 30000</strong> so'm</li>
-
-                            <li class="">Soni: 1ta</li>
-                            <li class="">Vaqti: 6-Fevral, 2024-yil 17:43</li>
-                            <li class="">Yangilangan vaqti: 7-Fevral, 2024-yil 1:07</li>
-                            <li class="">Holati: yangi</li>
-                        </ul>
-                        <a href="/operator/order/1746834" class="btn btn-primary"
-                           style="float: left; margin-right: 10px;">
-
-                            Qabul qilish
-
-                        </a>
-                        <form action="/operator/new/hold" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken"
-                                   value="ktKqqAXPWFf72f0l3IUaASIBGWWPsdQkG0p40DAMvhVpXYyrTw3jM0cjZ8vOJKye">
-                            <input type="text" hidden name="order" value="1746834">
-                            <input class="btn btn-primary" type="submit" value="Hold"
-                                   style="float: right; margin-right: 10px;">
-                        </form>
-                    </div>
-                </div>
-
-
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-
-
-                        <li class="page-item"><a class="page-link " href="?page=1">1</a></li>
-
-
-                        <li class="page-item"><a class="page-link " href="?page=2">2</a></li>
-
-
-                        <li class="page-item"><a class="page-link " href="?page=3">3</a></li>
-
-
-                        <li class="page-item"><a class="page-link " href="?page=4">4</a></li>
-
-
-                        <li class="page-item"><a class="page-link " href="?page=5">5</a></li>
-
-
-                        <li class="page-item"><a class="page-link " href="?page=6">6</a></li>
-
-
-                        <li class="page-item"><a class="page-link " href="?page=7">7</a></li>
-
-
-                        <li class="page-item"><a class="page-link " href="?page=8">8</a></li>
-
-
-                        <li class="page-item"><a class="page-link " href="?page=9">9</a></li>
-
-
-                        <li class="page-item"><a class="page-link" href="?page=2">Keyingisi</a></li>
-
-
-                    </ul>
-                </nav>
 
 
             </div>
-
 
         </div>
     </div>
@@ -1996,5 +1574,3 @@
 
 </body>
 </html>
-
-{% endblock %}

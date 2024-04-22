@@ -6,9 +6,9 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, TemplateView, FormView, DetailView, UpdateView
 
-from apps.forms import UserRegistrationForm, OrderModelForm, UserSettingsForm
-from apps.models import Product, User, SiteSettings, Order, Category
-from apps.models import ProductImage, WishList
+from apps.forms import UserRegistrationForm, OrderModelForm, UserSettingsForm, ThreadModelForm
+from apps.mixins import NotLoginRequiredMixins
+from apps.models import Product, User, SiteSettings, Order, Category, ProductImage, WishList, Thread
 from apps.tasks import send_to_email
 
 
@@ -18,7 +18,6 @@ class CategoryTemplateView(TemplateView):
 
 class ProductListView(ListView):
     paginate_by = 9
-    model = Product
     queryset = Product.objects.order_by('-id')
     template_name = 'apps/product/product_grid.html'
     context_object_name = 'product_list'
@@ -57,7 +56,7 @@ class LogoutView(ListView):
     context_object_name = 'logout'
 
 
-class RegisterView(FormView):
+class RegisterView(NotLoginRequiredMixins, FormView):
     form_class = UserRegistrationForm
     template_name = 'apps/auth/register.html'
     success_url = '/'
@@ -90,7 +89,7 @@ class WishlistView(View):
         return redirect('/')
 
 
-class OrderView(FormView):
+class OrderFormView(FormView):
     form_class = OrderModelForm
     template_name = 'apps/product/product_detail.html'
 
@@ -164,6 +163,75 @@ class DeleteWishlistView(View):
 
 
 class OperatorView(ListView):
-    model = WishList
-    template_name = 'apps/auth/operators.html'
-    context_object_name = 'operator'
+    model = Order
+    template_name = 'apps/admin/operators.html'
+    context_object_name = 'operators'
+
+
+class MarketView(LoginRequiredMixin, ListView):
+    paginate_by = 9
+    queryset = Product.objects.order_by('-id')
+    template_name = 'apps/admin/market.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        category_id = self.request.GET.get('category', None)
+        if category_id:
+            return self.queryset.filter(category_id=category_id)
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
+        context['delivery_price'] = SiteSettings.objects.first().delivery_price
+        return context
+
+
+class MarketAllListView(ListView):
+    paginate_by = 9
+    queryset = Product.objects.order_by('-id')
+    template_name = 'apps/admin/market.html'
+    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
+        context['delivery_price'] = SiteSettings.objects.first().delivery_price
+        return context
+
+
+class ThreadListView(ListView):
+    queryset = Thread.objects.all()
+    template_name = 'apps/admin/oqim.html'
+    context_object_name = 'oqim'
+
+
+class ThreadFormView(FormView):
+    template_name = 'apps/admin/market.html'
+    form_class = ThreadModelForm
+    success_url = reverse_lazy('oqim')
+
+    def form_valid(self, form):
+        stream = form.save(False)
+        stream.user = self.request.user
+        stream.save()
+        return redirect('thread_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['threads'] = Thread.objects.all()
+        return context
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+
+class ThreadListView(ListView):
+    model = Thread
+    template_name = 'apps/admin/oqim.html'
+    context_object_name = 'threads'
+
+
+class StatisticsListView(ListView):
+    queryset = Product.objects.all()
+    template_name = 'apps/admin/statistics.html'

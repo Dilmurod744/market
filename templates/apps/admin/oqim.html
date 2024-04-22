@@ -1,0 +1,55 @@
+{% extends 'apps/base.html' %}
+{% load static %}
+{% block title %} Oqim {% endblock %}
+
+{% block content %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="container">
+                <br>
+                <h3 class="text-center"> Mening havolalarim </h3>
+                <br>
+                {% for thread in threads %}
+                    <div class="row"    >
+
+                        <div class="col-sm-4">
+                            <div class="card-header">
+                                <!-- <a href="#" onclick="myFunction(52235)" data-request="onDeleteStream"
+                                    data-request-data="'id': 52235, 'csrftoken':uIbBTttvGyynzVyhneE4T2xujDTrhL83IKFR3zyf3MDcMOj4AfdbgbOoulAy7yam"
+                                    data-request-flash="" data-request-success="$(this).closest('.col-sm-4').remove()"
+                                    data-request-confirm="Siz rostdan ham oqimni o'chirmoqchimisiz?" class="text-danger"
+                                    style="float: right"> <span class="fa fa-trash" aria-hidden="true"></span> </a> -->
+
+                                <h5>{{ thread.name   }}</h5>
+
+
+                            </div>
+                            <div class="card">
+                                <div class="card-body" style="position: relative;">
+                                    <div class="form-group">
+                                        <input type="text" value="{{ request.build_absolute_uri }}{{ thread.id }}" readonly=""
+                                               class="ref_link form-control">
+                                    </div>
+                                    <button class="copy_ref_bn btn btn-pri      mary"
+                                            style="float:left;  margin-right:9px; margin-top: 9px;">Nusxa ko'chirish
+                                    </button>
+                                    <a href="https://alijahon.uz/oqim/52235" target="_blank"><i
+                                            class="fa-solid fa-square-arrow-up-right"
+                                            style="font-size: 29px; float:left; color:#e52c2c; margin-top: 9px; margin-right:9px;"
+                                            aria-hidden="true"></i></a>
+                                    <a href="https://t.me/AlijahonBot?start=order_52235" target="_blank"><i
+                                            class="fa-brands fa-telegram"
+                                            style="font-size: 29px; float:left; color:#e52c2c; margin-top: 9px;"
+                                            aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

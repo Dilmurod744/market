@@ -9,7 +9,6 @@ from django.db.models import SET_NULL, DecimalField
 from django.utils.text import slugify
 from django.utils.timezone import now
 from django_resized import ResizedImageField
-from mptt import querysets
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
@@ -72,7 +71,7 @@ class User(AbstractUser):
 
 class Category(MPTTModel):
     name = CharField(max_length=25)
-    slug = SlugField(max_length=25, null=True, blank=True,unique=True)
+    slug = SlugField(max_length=25, null=True, blank=True, unique=True)
     parent = TreeForeignKey('self', SET_NULL, related_name='subcategory', null=True, blank=True)
     image = ResizedImageField(size=[100, 100], upload_to='category_images/', null=True, blank=True,
                               default='user_avatars/banner_default.jpg')
@@ -108,8 +107,8 @@ class Product(BaseModel):
     specifications = JSONField(null=True, blank=True)
     shipping = DecimalField(max_digits=9, decimal_places=2)
     quantity = PositiveIntegerField(default=0)
+    slug = SlugField(max_length=255, null=True, blank=True, unique=True)
     category = ForeignKey('apps.Category', CASCADE, 'categories')
-    slug = SlugField(max_length=255, null=True, blank=True,unique=True)
 
     class Meta:
         verbose_name = 'Mahsulot'
@@ -178,6 +177,16 @@ class Order(BaseModel):
     phone_number = CharField(max_length=20)
     product = ForeignKey('apps.Product', CASCADE)
 
+    class Status(TextChoices):
+        NEW = 'yangi'
+        ARCHIVE = 'arxivlandi'
+        DELIVERING = 'yetkazilmoqda'
+        BROKEN = 'nosoz_mahsulot'
+        RETURNED = 'qaytib_keldi'
+        CANCELLED = 'bekor_qilindi'
+        WAITING = 'keyin_oladi'
+        READY_TO_DELIVERY = 'dastavkaga_tayyor'
+
 
 class SiteSettings(Model):
     delivery_price = DecimalField(max_digits=9, decimal_places=2)
@@ -190,3 +199,10 @@ class Region(Model):
 class District(Model):
     name = CharField(max_length=30)
     region = ForeignKey('apps.Region', CASCADE)
+
+
+class Thread(Model):
+    name = CharField(max_length=35)
+    user = ForeignKey('apps.User', CASCADE, related_name='user_thread')
+    product = ForeignKey('apps.Product', CASCADE, related_name='product_thread')
+

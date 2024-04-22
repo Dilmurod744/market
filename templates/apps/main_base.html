@@ -25,7 +25,9 @@
     <meta name="msapplication-TileImage" content="{% static 'apps/assets/img/favicons/mstile-150x150.png' %}">
     <meta name="theme-color" content="#ffffff">
     <script src="{% static 'apps/assets/js/config.js' %}"></script>
+    <script src="{% static 'apps/assets/js/lightbox.min.js' %}"></script>
     <script src="{% static 'apps/vendors/overlayscrollbars/OverlayScrollbars.min.js' %}"></script>
+    <link href="{% static 'apps/vendors/swiper/swiper-bundle.min.css' %}" rel="stylesheet"/>
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -72,19 +74,20 @@
 <script src="{% static 'apps/vendors/swiper/swiper-bundle.min.js' %}"></script>
 <script src="{% static 'apps/vendors/fontawesome/all.min.js' %}"></script>
 <script src="{% static 'apps/vendors/lodash/lodash.min.js' %}"></script>
+<script src="https://kit.fontawesome.com/1257678c77.js" crossorigin="anonymous"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
 <script src="{% static 'apps/vendors/list.js/list.min.js' %}"></script>
 
 <script src="{% static 'apps/assets/js/theme.js' %}"></script>
 <script src="https://unpkg.com/imask"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-    <script>
-        $('#phone-mask').inputmask({
-            "mask": "+\\9\\98(99) 999-99-99"
-        });
-        $('#messages-modal').modal('show');
-    </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script>
+    $('#phone-mask').inputmask({
+        "mask": "+\\9\\98(99) 999-99-99"
+    });
+    $('#messages-modal').modal('show');
+</script>
 
 </body>
 

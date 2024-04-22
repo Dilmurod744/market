@@ -40,7 +40,12 @@ def view_test(request):
     return JsonResponse({'msg': 'msg'})
 
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
+
 urlpatterns = [
+                  path('sentry-debug/', trigger_error),
                   path('test', view_test),
                   path('create', create_check_task),
                   path('check/<task_id>', custom_check_task),
@@ -48,4 +53,5 @@ urlpatterns = [
                   path('admin/logout/', custom_logout),
                   path('admin/', admin.site.urls),
                   path('', include('apps.urls')),
+                  path("__debug__/", include("debug_toolbar.urls"))
               ] + static(STATIC_URL, document_root=STATIC_ROOT) + static(MEDIA_URL, document_root=MEDIA_ROOT)
