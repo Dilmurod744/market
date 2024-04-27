@@ -28,11 +28,11 @@ class ProductImageStackedInline(StackedInline):
     min_num = 1
     extra = 0
     fields = ['image']
-    # list_select_related = ['product_id']
 
 
 @admin.register(Product)
 class ProductAdmin(ImportExportModelAdmin):
+
     def form_description(self, obj):
         return mark_safe(obj.description)
 
@@ -44,28 +44,21 @@ class ProductAdmin(ImportExportModelAdmin):
     list_max_show_all = 20
     resource_class = ProductModelResource
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('images')
+
     def response_post_save_add(self, request, obj):
         result = super().response_post_save_add(request, obj)
         # url = request.build_absolute_uri(reverse('product_detail', kwargs={'pk': obj.pk}))
         # send_new_product_notification.delay(product_name=obj.name, url=url)
         return result
 
-    def get_queryset(self, request):
-        if request.user.is_superuser:
-            return super(ProductAdmin, self).get_queryset(request)
-
-        #     return super(ProductAdmin, self).get_queryset(request)
-        else:
-            qs = super(ProductAdmin, self).get_queryset(request)
-        return qs.filter(owner=request.user)
-
+    @admin.display(description='images')
     def image_show(self, obj: Product):
-        if obj.images.first():
-            return mark_safe("<img src='{}' width='200' />".format(obj.images.first().image.url))
-
+        images = obj.images.all()
+        if images:
+            return mark_safe("<img src='{}' width='200' />".format(images[0].image.url))
         return ''
-
-    image_show.description = 'images'
 
 
 @admin.register(User)

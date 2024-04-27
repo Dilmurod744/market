@@ -6,10 +6,12 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, TemplateView, FormView, DetailView, UpdateView
 
-from apps.forms import UserRegistrationForm, OrderModelForm, UserSettingsForm, ThreadModelForm
+from apps.forms import UserRegistrationForm, OrderModelForm, UserSettingsForm, ThreadModelForm, OrderAcceptedModelForm
 from apps.mixins import NotLoginRequiredMixins
-from apps.models import Product, User, SiteSettings, Order, Category, ProductImage, WishList, Thread
+from apps.models import Product, User, SiteSettings, Order, Category, ProductImage, WishList, Thread, Region
 from apps.tasks import send_to_email
+from django.http import JsonResponse
+from .models import District
 
 
 class CategoryTemplateView(TemplateView):
@@ -235,3 +237,159 @@ class ThreadListView(ListView):
 class StatisticsListView(ListView):
     queryset = Product.objects.all()
     template_name = 'apps/admin/statistics.html'
+
+
+class NewOrderListView(ListView):
+    queryset = Order.objects.filter(status=Order.Status.NEW)
+    paginate_by = 10
+    template_name = 'apps/operators/new_order.html'
+    context_object_name = 'orders'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class ReadyOrderListView(ListView):
+    queryset = Order.objects.filter(status=Order.Status.READY_TO_DELIVERY)
+    paginate_by = 10
+    template_name = 'apps/operators/ready_for_delivery.html'
+    context_object_name = 'read_for_deliveries'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class DeliveringOrderListView(ListView):
+    queryset = Order.objects.filter(status=Order.Status.DELIVERING)
+    paginate_by = 10
+    template_name = 'apps/operators/delivering.html'
+    context_object_name = 'deliveries'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class WaitingOrderListView(ListView):
+    queryset = Order.objects.filter(status=Order.Status.WAITING)
+    paginate_by = 10
+    template_name = 'apps/operators/waiting.html'
+    context_object_name = 'waiting'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class ArchivedOrderListView(ListView):
+    queryset = Order.objects.filter(status=Order.Status.ARCHIVE)
+    paginate_by = 10
+    template_name = 'apps/operators/archived.html'
+    context_object_name = 'archived'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class BrokenOrderListView(ListView):
+    queryset = Order.objects.filter(status=Order.Status.BROKEN)
+    paginate_by = 10
+    template_name = 'apps/operators/broken.html'
+    context_object_name = 'broken'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class DeliveredOrderListView(ListView):
+    queryset = Order.objects.filter(status=Order.Status.DELIVERED)
+    paginate_by = 10
+    template_name = 'apps/operators/delivered.html'
+    context_object_name = 'delivered'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class CancelledOrderListView(ListView):
+    queryset = Order.objects.filter(status=Order.Status.CANCELLED)
+    paginate_by = 10
+    template_name = 'apps/operators/cancelled.html'
+    context_object_name = 'cancelled'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class HoldOrderListView(ListView):
+    queryset = Order.objects.filter(status=Order.Status.HOLD)
+    paginate_by = 10
+    template_name = 'apps/operators/hold.html'
+    context_object_name = 'hold'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class AllOrderListView(ListView):
+    queryset = Order.objects.all()
+    paginate_by = 10
+    template_name = 'apps/operators/all.html'
+    context_object_name = 'all_orders'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class OrderAcceptedView(UpdateView):
+    model = Order
+    form_class = OrderAcceptedModelForm
+    template_name = 'apps/admin/accepted_order.html'
+    success_url = reverse_lazy('new')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context
+
+
+class HolatUpdateView(UpdateView):
+    model = Order
+    form_class = OrderAcceptedModelForm
+    template_name = 'apps/admin/holatni_ozgartirish.html'
+    success_url = reverse_lazy('ready')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        context['districts'] = District.objects.all()
+        return context

@@ -63,3 +63,9 @@ class ThreadModelForm(LoginRequiredMixin, ModelForm):
     class Meta:
         model = Thread
         fields = ['name', 'product']
+
+
+class OrderAcceptedModelForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = ['quantity', 'region', 'status', 'comment']

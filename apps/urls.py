@@ -5,7 +5,10 @@ from django.urls import path
 from apps.views import ProductListView, ProductDetailView, LogoutView, RegisterView, ForgotPasswordView, \
     UserTemplateView, WishlistView, OrderFormView, ErrorPage404View, ErrorPage500View, UserUpdateView, \
     ChangePasswordView, OrderedDetailView, WishlistPageView, DeleteWishlistView, OperatorView, MarketView, \
-    MarketAllListView, ThreadListView, ThreadFormView, StatisticsListView, ThreadListView
+    MarketAllListView, ThreadListView, ThreadFormView, StatisticsListView, ThreadListView, NewOrderListView, \
+    ReadyOrderListView, DeliveringOrderListView, WaitingOrderListView, ArchivedOrderListView, BrokenOrderListView, \
+    DeliveredOrderListView, CancelledOrderListView, HoldOrderListView, AllOrderListView, OrderAcceptedView, \
+    HolatUpdateView
 from root import settings
 
 urlpatterns = [
@@ -34,3 +37,19 @@ urlpatterns = [
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                                                                                         document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    path('operator/new', NewOrderListView.as_view(), name='new'),
+    path('operator/ready', ReadyOrderListView.as_view(), name='ready'),
+    path('operator/delivering', DeliveringOrderListView.as_view(), name='delivering'),
+    path('operator/waiting', WaitingOrderListView.as_view(), name='waiting'),
+    path('operator/archived', ArchivedOrderListView.as_view(), name='archived'),
+    path('operator/broken', BrokenOrderListView.as_view(), name='broken'),
+    path('operator/delivered', DeliveredOrderListView.as_view(), name='delivered'),
+    path('operator/cancelled', CancelledOrderListView.as_view(), name='cancelled'),
+    path('operator/hold', HoldOrderListView.as_view(), name='hold'),
+    path('operator/all', AllOrderListView.as_view(), name='all'),
+    path('operator/order/<int:pk>', OrderAcceptedView.as_view(), name='order_accepted'),
+    path('operator/holat/<int:pk>',HolatUpdateView.as_view(),name='holat_update'),
+
+]

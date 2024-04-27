@@ -134,15 +134,15 @@ class Product(BaseModel):
         users_emails = list(User.objects.values_list('email', flat=True))
         send_new_product_notification.delay(users_emails, self.name, 'https://www.youtube.com/', )
 
+    def __str__(self):
+        return self.name
+
     @property
     def stock(self):
         if self.quantity > 0:
             return "Sotuvda bor"
         else:
             return "Sotuvda yo`q"
-
-    def __str__(self):
-        return self.name
 
     @property
     def is_new(self):
@@ -172,20 +172,28 @@ class WishList(Model):
 
 
 class Order(BaseModel):
+    class Status(TextChoices):
+        NEW = 'yangi', 'Yangi'
+        ARCHIVE = 'arxivlandi', 'Arxivlandi'
+        DELIVERING = 'yetkazilmoqda', 'Yetkazilmoqda'
+        BROKEN = 'nosoz_mahsulot', 'Nosoz_mahsulot'
+        DELIVERED = 'yetkazib_berildi', 'Yetkazib_berildi'
+        RETURNED = 'qaytib_keldi', 'Qaytib_keldi'
+        CANCELLED = 'bekor_qilindi', 'Bekor_qilindi'
+        WAITING = 'keyin_oladi', 'Keyin_oladi'
+        HOLD = 'hold', 'Hold'
+        READY_TO_DELIVERY = 'dastavkaga_tayyor', 'Dastavkaga_tayyor'
+
     name = CharField(max_length=20)
     quantity = IntegerField(default=0)
     phone_number = CharField(max_length=20)
+    status = CharField(max_length=20, choices=Status.choices, default=Status.NEW)
+    comment = CharField(max_length=512, null=True, blank=True)
+    region = CharField(max_length=30, null=True, blank=True)
+    district = CharField(max_length=30, null=True, blank=True)
     product = ForeignKey('apps.Product', CASCADE)
-
-    class Status(TextChoices):
-        NEW = 'yangi'
-        ARCHIVE = 'arxivlandi'
-        DELIVERING = 'yetkazilmoqda'
-        BROKEN = 'nosoz_mahsulot'
-        RETURNED = 'qaytib_keldi'
-        CANCELLED = 'bekor_qilindi'
-        WAITING = 'keyin_oladi'
-        READY_TO_DELIVERY = 'dastavkaga_tayyor'
+    thread = ForeignKey('apps.Thread', SET_NULL, blank=True, null=True)
+    user = ForeignKey('apps.User', CASCADE, 'user', blank=True, null=True, verbose_name='Foydalanuvchi')
 
 
 class SiteSettings(Model):
@@ -198,11 +206,10 @@ class Region(Model):
 
 class District(Model):
     name = CharField(max_length=30)
-    region = ForeignKey('apps.Region', CASCADE)
+    region = ForeignKey('apps.Region', CASCADE,related_name='districts')
 
 
 class Thread(Model):
     name = CharField(max_length=35)
     user = ForeignKey('apps.User', CASCADE, related_name='user_thread')
     product = ForeignKey('apps.Product', CASCADE, related_name='product_thread')
-
