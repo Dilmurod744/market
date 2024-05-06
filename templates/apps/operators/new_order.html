@@ -11,7 +11,7 @@
                         <label for="id_product">Mahsulot:</label>
                         <select name="product" id="id_product" multiple>
                             {% for order in orders %}
-                                <option value="1">{{ order.product.name }}</option>
+                                <option value="">{{ order.product.name }}</option>
                             {% endfor %}
                         </select>
 
@@ -61,7 +61,7 @@
                             <li class="">Yangilangan vaqti: {{ order.updated_at }}</li>
                             <li class="">Holati: {{ order.get_status_display }}</li>
                         </ul>
-                        <a href="{% url 'order_accepted' order.id %}" class="btn btn-primary"
+                        <a href="{% url 'holat_update' order.id %}" class="btn btn-primary"
                            style="float: left; margin-right: 10px;">
 
                             Qabul qilish

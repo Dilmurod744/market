@@ -1,12 +1,14 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
-from django.shortcuts import redirect
+from django.db.models import Count, Q, Sum
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, TemplateView, FormView, DetailView, UpdateView
+from django.views.generic import ListView, TemplateView, FormView, DetailView, UpdateView, CreateView
 
-from apps.forms import UserRegistrationForm, OrderModelForm, UserSettingsForm, ThreadModelForm, OrderAcceptedModelForm
+from apps.forms import UserRegistrationForm, OrderModelForm, UserSettingsForm, ThreadModelForm, OrderAcceptedModelForm, \
+    OrderCreateModelForm
 from apps.mixins import NotLoginRequiredMixins
 from apps.models import Product, User, SiteSettings, Order, Category, ProductImage, WishList, Thread, Region
 from apps.tasks import send_to_email
@@ -39,6 +41,14 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'apps/product/product_detail.html'
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        if pk:
+            thread = get_object_or_404(Thread.objects.all(), pk=pk)
+            return thread.product
+        return get_object_or_404(Product.objects.all(), slug=slug)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -202,16 +212,9 @@ class MarketAllListView(ListView):
         return context
 
 
-class ThreadListView(ListView):
-    queryset = Thread.objects.all()
-    template_name = 'apps/admin/oqim.html'
-    context_object_name = 'oqim'
-
-
 class ThreadFormView(FormView):
     template_name = 'apps/admin/market.html'
     form_class = ThreadModelForm
-    success_url = reverse_lazy('oqim')
 
     def form_valid(self, form):
         stream = form.save(False)
@@ -230,7 +233,7 @@ class ThreadFormView(FormView):
 
 class ThreadListView(ListView):
     model = Thread
-    template_name = 'apps/admin/oqim.html'
+    template_name = 'apps/admin/thread.html'
     context_object_name = 'threads'
 
 
@@ -393,3 +396,46 @@ class HolatUpdateView(UpdateView):
         context['regions'] = Region.objects.all()
         context['districts'] = District.objects.all()
         return context
+
+
+class NewOrderCreateView(LoginRequiredMixin, CreateView):
+    model = Order
+    form_class = OrderCreateModelForm
+    template_name = 'apps/operators/zakaz.html'
+    success_url = reverse_lazy('new')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['regions'] = Region.objects.all()
+        return context
+
+
+class   StatisticListView(ListView):
+    queryset = Thread.objects.annotate(
+        new=Count('orders', filter=Q(orders__status=Order.Status.NEW)),
+        archive=Count('orders', filter=Q(orders__status=Order.Status.ARCHIVE)),
+        ready_to_delivery=Count('orders', filter=Q(orders__status=Order.Status.READY_TO_DELIVERY)),
+        delivered=Count('orders', filter=Q(orders__status=Order.Status.DELIVERED)),
+        waiting=Count('orders', filter=Q(orders__status=Order.Status.WAITING)),
+        cancelled=Count('orders', filter=Q(orders__status=Order.Status.CANCELLED))
+    ).select_related('product')
+    template_name = 'apps/admin/statistics.html'
+    context_object_name = 'statistics'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        queryset = self.get_queryset()
+        context.update(**queryset.aggregate(
+            visit_total=Sum(Thread.counter),
+            new_total=Sum(Order.Status.NEW),
+            archived_total=Sum(Order.Status.ARCHIVE),
+            ready_to_delivery_total=Sum(Order.Status.READY_TO_DELIVERY),
+            delivered_total=Sum(Order.Status.DELIVERED),
+            waiting_total=Sum(Order.Status.WAITING),
+            cancelled_total=Sum(Order.Status.CANCELLED),
+        ))
+        return context
+
+
+class Currier(TemplateView):
+    template_name = 'apps/operators/currier.html'

@@ -189,10 +189,10 @@ class Order(BaseModel):
     phone_number = CharField(max_length=20)
     status = CharField(max_length=20, choices=Status.choices, default=Status.NEW)
     comment = CharField(max_length=512, null=True, blank=True)
-    region = CharField(max_length=30, null=True, blank=True)
-    district = CharField(max_length=30, null=True, blank=True)
+    region = ForeignKey('apps.Region', SET_NULL, null=True, blank=True)
+    district = ForeignKey('apps.District', SET_NULL, null=True, blank=True)
     product = ForeignKey('apps.Product', CASCADE)
-    thread = ForeignKey('apps.Thread', SET_NULL, blank=True, null=True)
+    thread = ForeignKey('apps.Thread', SET_NULL, blank=True, null=True, related_name='orders')
     user = ForeignKey('apps.User', CASCADE, 'user', blank=True, null=True, verbose_name='Foydalanuvchi')
 
 
@@ -203,13 +203,20 @@ class SiteSettings(Model):
 class Region(Model):
     name = CharField(max_length=30)
 
+    def __str__(self):
+        return self.name
+
 
 class District(Model):
     name = CharField(max_length=30)
-    region = ForeignKey('apps.Region', CASCADE,related_name='districts')
+    region = ForeignKey('apps.Region', CASCADE, related_name='districts')
+
+    def __str__(self):
+        return self.name
 
 
 class Thread(Model):
     name = CharField(max_length=35)
+    counter = IntegerField(default=0)
     user = ForeignKey('apps.User', CASCADE, related_name='user_thread')
     product = ForeignKey('apps.Product', CASCADE, related_name='product_thread')

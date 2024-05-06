@@ -1,678 +1,107 @@
+{% extends 'apps/operators/operator_main.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>
-        Operatorlar bo'limi - Hamma buyurtmalar
-        - alijahon.uz</title>
-    <link rel="stylesheet" href="{% static 'apps/bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'apps/bootstrap/css/font-awesome.min.css' %}">
-    <link href="{% static 'apps/bootstrap/css/multiple-select.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <style>
-        select {
-            width: 100%;
-        }
-    </style>
+{% block operator_content %}
+    <div class="col-md-10" style="margin-left: 16%;">
+        <div class="bg-light w-75 m-auto mt-5">
+            <form method="GET">
+                <div>
+                    <p>
+                        <label for="id_product">Mahsulot:</label>
+                        <select name="product" id="id_product" multiple>
+                            {% for order in all_orders %}
+                                <option value="1">{{ order.product.name }}</option>
+                            {% endfor %}
+                        </select>
 
-</head>
-<body>
-<div>
-    <nav class="navbar navbar-dark bg-dark text-white" style="height: 10%;">
 
+                    </p>
 
-        <div>Buyurtmalar</div>
-        <h4>ID: 721 </h4>
-        <a href="/admin_page" class="btn btn-danger btn-sm">Asosiy panel</a>
-    </nav>
-    <div class="row">
-        <div class="col-md-2 h-70 text-center" style="background-color: #38ffae; padding-right: 0; position:absolute;">
-            <div class="list-group text-light w-100 h-100">
-                <a style="height: 13%" href="/operator/new"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                    </div>
-                    <h6>Yangi buyurtmalar</h6>
-                </a>
-                <a style="height: 13%" href="/operator/ready"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-truck" aria-hidden="true"></i>
-                    </div>
-                    <h6>Dostavka tayyor</h6>
-                </a>
-                <a style="height: 13%" href="/operator/delivering"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-truck" aria-hidden="true"></i>
-                    </div>
-                    <h6>Yetkazilmoqda</h6>
-                </a>
-                <a style="height: 13%" href="/operator/waiting"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    </div>
-                    <h6>Keyin oladi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/archived"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-archive" aria-hidden="true"></i>
-                    </div>
-                    <h6>Arxivlandi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/broken"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-chain-broken" aria-hidden="true"></i>
-                    </div>
-                    <h6>Nosoz, bekor qilindi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/delivered"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </div>
-                    <h6>Yetkazib berildi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/cancelled"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </div>
-                    <h6>Qaytib keldi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/hold"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </div>
-                    <h6>Hold</h6>
-                </a>
-                <a style="height: 13%" href="/operator/all"
-                   class="btn btn-primary list-group-item text-dark mt-1  active ">
-                    <div>
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                    </div>
-                    <h6>Hammasi</h6>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-10" style="margin-left: 16%;">
 
+                    <p>
+                        <label for="id_location">Viloyat:</label>
+                        <select name="location" id="id_location" multiple>
+                            <option value="Viloyatni tanlang">Viloyatni tanlang</option>
+                            {% for region in regions %}
+                                <option value="tashkent">{{ region.name }}</option>
+                            {% endfor %}
 
-            <div class="bg-light w-75 m-auto mt-5">
-                <form method="GET">
-                    <div>
-                        <p>
-                            <label for="id_product">Mahsulot:</label>
-                            <select name="product" id="id_product" multiple>
-                                <option value="1">Oyoq kiyim uchun maxsus shkaf</option>
 
-                                <option value="1"> maxsus shkaf</option>
+                        </select>
 
 
-                            </select>
+                    </p>
 
 
-                        </p>
+                    <p>
+                        <label for="id_region">Tuman:</label>
+                        <select name="region" id="id_region" multiple>
+                            {% for district in districts %}
+                                <option value="Amudaryo tumani">{{ district.name }}</option>
+                            {% endfor %}
 
 
-                        <p>
-                            <label for="id_location">Viloyat:</label>
-                            <select name="location" id="id_location" multiple>
-                                <option value="Viloyatni tanlang">Viloyatni tanlang</option>
+                        </select>
 
-                                <option value="tashkent">Toshkent shahar</option>
 
-                                <option value="andijon">Andijon viloyati</option>
+                    </p>
 
-                                <option value="buxoro">Buxoro viloyati</option>
 
-                                <option value="fargona">Fargʻona viloyati</option>
+                    <p>
+                        <label for="id_name">Mahsulot nomi:</label>
+                        <input type="text" name="name" id="id_name">
 
-                                <option value="jizzax">Jizzax viloyati</option>
 
-                                <option value="namangan">Namangan viloyati</option>
+                    </p></div>
+                <input class="btn btn-primary" type="submit" value="Saqlash">
+            </form>
+            {% for order in all_orders %}
+                <div class="card border-dark mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ order.product.name }} - {{ order.product.price }} so'm</h2>
+                        <ul class="text-muted">
+                            <li class="">Client: {{ order.user.first_name }} {{ order.user.last_name }}
+                                - {{ order.user.phone_number }}</li>
+                            <li class="">Address: Viloyatni tanlang</li>
+                            <li class="">Narxi: {{ order.product.price }} so'm <strong>+ 30000</strong> so'm</li>
+                            <li class="">Soni: {{ order.quantity }}ta</li>
+                            <li class="">Komment: {{ order.comment }}</li>
 
-                                <option value="navoiy">Navoiy viloyati</option>
+                            <li class="">ID: #{{ order.id }}</li>
+                            <li class="">Vaqti: {{ order.created_at }}</li>
+                            <li class="">Yangilangan vaqti: {{ order.updated_at }}</li>
+                            <li class="text-dark">Holati: {{ order.get_status_display }}</li>
+                        </ul>
 
-                                <option value="qashqadaryo">Qashqadaryo viloyati</option>
-
-                                <option value="qoraqalpogiston">Qoraqalpogʻiston Respublika</option>
-
-                                <option value="samarqand">Samarqand viloyati</option>
-
-                                <option value="sirdaryo">Sirdaryo viloyati</option>
-
-                                <option value="surxondaryo">Surxondaryo viloyati</option>
-
-                                <option value="toshkent">Toshkent viloyati</option>
-
-                                <option value="xorazm">Xorazm viloyati</option>
-
-                            </select>
-
-
-                        </p>
-
-
-                        <p>
-                            <label for="id_region">Tuman:</label>
-                            <select name="region" id="id_region" multiple>
-                                <option value="Amudaryo tumani">Amudaryo tumani</option>
-
-                                <option value="Beruniy tumani">Beruniy tumani</option>
-
-                                <option value="Kegayli tumani">Kegayli tumani</option>
-
-                                <option value="Qonliko&#x27;l tumani">Qonliko&#x27;l tumani</option>
-
-                                <option value="Qorao&#x27;zak tumani">Qorao&#x27;zak tumani</option>
-
-                                <option value="Qo&#x27;ng&#x27;irot tumani">Qo&#x27;ng&#x27;irot tumani</option>
-
-                                <option value="Mo&#x27;ynoq tumani">Mo&#x27;ynoq tumani</option>
-
-                                <option value="Nukus tumani">Nukus tumani</option>
-
-                                <option value="Nukus shahri">Nukus shahri</option>
-
-                                <option value="Taxtako&#x27;pir tumani">Taxtako&#x27;pir tumani</option>
-
-                                <option value="To&#x27;rtko&#x27;l tumani">To&#x27;rtko&#x27;l tumani</option>
-
-                                <option value="Xo&#x27;jayli tumani">Xo&#x27;jayli tumani</option>
-
-                                <option value="Chimboy tumani">Chimboy tumani</option>
-
-                                <option value="Shumanay tumani">Shumanay tumani</option>
-
-                                <option value="Ellikqal&#x27;a tumani">Ellikqal&#x27;a tumani</option>
-
-                                <option value="Andijon shahri">Andijon shahri</option>
-
-                                <option value="Andijon tumani">Andijon tumani</option>
-
-                                <option value="Asaka tumani">Asaka tumani</option>
-
-                                <option value="Baliqchi tumani">Baliqchi tumani</option>
-
-                                <option value="Buloqboshi tumani">Buloqboshi tumani</option>
-
-                                <option value="Bo&#x27;z tumani">Bo&#x27;z tumani</option>
-
-                                <option value="Jalaquduq tumani">Jalaquduq tumani</option>
-
-                                <option value="Izbosgan tumani">Izbosgan tumani</option>
-
-                                <option value="Qorasuv shahri">Qorasuv shahri</option>
-
-                                <option value="Qo&#x27;rg&#x27;ontepa tumani">Qo&#x27;rg&#x27;ontepa tumani</option>
-
-                                <option value="Marhamat tumani">Marhamat tumani</option>
-
-                                <option value="Oltinko&#x27;l tumani">Oltinko&#x27;l tumani</option>
-
-                                <option value="Paxtaobod tumani">Paxtaobod tumani</option>
-
-                                <option value="Ulug&#x27;nor tumani">Ulug&#x27;nor tumani</option>
-
-                                <option value="Xonabod tumani">Xonabod tumani</option>
-
-                                <option value="Xo&#x27;jaobod tumani">Xo&#x27;jaobod tumani</option>
-
-                                <option value="Shahrixon tumani">Shahrixon tumani</option>
-
-                                <option value="Buxoro shahri">Buxoro shahri</option>
-
-                                <option value="Buxoro tumani">Buxoro tumani</option>
-
-                                <option value="Vobkent tumani">Vobkent tumani</option>
-
-                                <option value="G&#x27;ijduvon tumani">G&#x27;ijduvon tumani</option>
-
-                                <option value="Jondor tumani">Jondor tumani</option>
-
-                                <option value="Kogon tumani">Kogon tumani</option>
-
-                                <option value="Kogon shahri">Kogon shahri</option>
-
-                                <option value="Qorako&#x27;l tumani">Qorako&#x27;l tumani</option>
-
-                                <option value="Qorovulbozor tumani">Qorovulbozor tumani</option>
-
-                                <option value="Olot tumani">Olot tumani</option>
-
-                                <option value="Peshku tumani">Peshku tumani</option>
-
-                                <option value="Romitan tumani">Romitan tumani</option>
-
-                                <option value="Shofirkon tumani">Shofirkon tumani</option>
-
-                                <option value="Arnasoy tumani">Arnasoy tumani</option>
-
-                                <option value="Baxmal tumani">Baxmal tumani</option>
-
-                                <option value="G&#x27;allaorol tumani">G&#x27;allaorol tumani</option>
-
-                                <option value="Do&#x27;stlik tumani">Do&#x27;stlik tumani</option>
-
-                                <option value="Sh.Rashidov tumani">Sh.Rashidov tumani</option>
-
-                                <option value="Jizzax shahri">Jizzax shahri</option>
-
-                                <option value="Zarbdor tumani">Zarbdor tumani</option>
-
-                                <option value="Zafarobod tumani">Zafarobod tumani</option>
-
-                                <option value="Zomin tumani">Zomin tumani</option>
-
-                                <option value="Mirzacho&#x27;l tumani">Mirzacho&#x27;l tumani</option>
-
-                                <option value="Paxtakor tumani">Paxtakor tumani</option>
-
-                                <option value="Forish tumani">Forish tumani</option>
-
-                                <option value="Yangiobod tumani">Yangiobod tumani</option>
-
-                                <option value="G&#x27;uzor tumani">G&#x27;uzor tumani</option>
-
-                                <option value="Dehqonobod tumani">Dehqonobod tumani</option>
-
-                                <option value="Qamashi tumani">Qamashi tumani</option>
-
-                                <option value="Qarshi tumani">Qarshi tumani</option>
-
-                                <option value="Qarshi shahri">Qarshi shahri</option>
-
-                                <option value="Kasbi tumani">Kasbi tumani</option>
-
-                                <option value="Kitob tumani">Kitob tumani</option>
-
-                                <option value="Koson tumani">Koson tumani</option>
-
-                                <option value="Mirishkor tumani">Mirishkor tumani</option>
-
-                                <option value="Muborak tumani">Muborak tumani</option>
-
-                                <option value="Nishon tumani">Nishon tumani</option>
-
-                                <option value="Chiroqchi tumani">Chiroqchi tumani</option>
-
-                                <option value="Shahrisabz tumani">Shahrisabz tumani</option>
-
-                                <option value="Yakkabog&#x27; tumani">Yakkabog&#x27; tumani</option>
-
-                                <option value="Zarafshon shahri">Zarafshon shahri</option>
-
-                                <option value="Karmana tumani">Karmana tumani</option>
-
-                                <option value="Qiziltepa tumani">Qiziltepa tumani</option>
-
-                                <option value="Konimex tumani">Konimex tumani</option>
-
-                                <option value="Navbahor tumani">Navbahor tumani</option>
-
-                                <option value="Navoiy shahri">Navoiy shahri</option>
-
-                                <option value="Nurota tumani">Nurota tumani</option>
-
-                                <option value="Tomdi tumani">Tomdi tumani</option>
-
-                                <option value="Uchquduq tumani">Uchquduq tumani</option>
-
-                                <option value="Xatirchi tumani">Xatirchi tumani</option>
-
-                                <option value="Kosonsoy tumani">Kosonsoy tumani</option>
-
-                                <option value="Mingbuloq tumani">Mingbuloq tumani</option>
-
-                                <option value="Namangan tumani">Namangan tumani</option>
-
-                                <option value="Namangan shahri">Namangan shahri</option>
-
-                                <option value="Norin tumani">Norin tumani</option>
-
-                                <option value="Pop tumani">Pop tumani</option>
-
-                                <option value="To&#x27;raqo&#x27;rg&#x27;on tumani">To&#x27;raqo&#x27;rg&#x27;on
-                                    tumani
-                                </option>
-
-                                <option value="Uychi tumani">Uychi tumani</option>
-
-                                <option value="Uchqo&#x27;rg&#x27;on tumani">Uchqo&#x27;rg&#x27;on tumani</option>
-
-                                <option value="Chortoq tumani">Chortoq tumani</option>
-
-                                <option value="Chust tumani">Chust tumani</option>
-
-                                <option value="Yangiqo&#x27;rg&#x27;on tumani">Yangiqo&#x27;rg&#x27;on tumani</option>
-
-                                <option value="Bulung&#x27;ur tumani">Bulung&#x27;ur tumani</option>
-
-                                <option value="Jomboy tumani">Jomboy tumani</option>
-
-                                <option value="Ishtixon tumani">Ishtixon tumani</option>
-
-                                <option value="Kattaqo&#x27;rg&#x27;on tumani">Kattaqo&#x27;rg&#x27;on tumani</option>
-
-                                <option value="Kattaqo&#x27;rg&#x27;on shahri">Kattaqo&#x27;rg&#x27;on shahri</option>
-
-                                <option value="Qo&#x27;shrabot tumani">Qo&#x27;shrabot tumani</option>
-
-                                <option value="Narpay tumani">Narpay tumani</option>
-
-                                <option value="Nurabod tumani">Nurabod tumani</option>
-
-                                <option value="Oqdaryo tumani">Oqdaryo tumani</option>
-
-                                <option value="Payariq tumani">Payariq tumani</option>
-
-                                <option value="Pastarg&#x27;om tumani">Pastarg&#x27;om tumani</option>
-
-                                <option value="Paxtachi tumani">Paxtachi tumani</option>
-
-                                <option value="Samarqand tumani">Samarqand tumani</option>
-
-                                <option value="Samarqand shahri">Samarqand shahri</option>
-
-                                <option value="Toyloq tumani">Toyloq tumani</option>
-
-                                <option value="Urgut tumani">Urgut tumani</option>
-
-                                <option value="Angor tumani">Angor tumani</option>
-
-                                <option value="Boysun tumani">Boysun tumani</option>
-
-                                <option value="Denov tumani">Denov tumani</option>
-
-                                <option value="Jarqo&#x27;rg&#x27;on tumani">Jarqo&#x27;rg&#x27;on tumani</option>
-
-                                <option value="Qiziriq tumani">Qiziriq tumani</option>
-
-                                <option value="Qo&#x27;mqo&#x27;rg&#x27;on tumani">Qo&#x27;mqo&#x27;rg&#x27;on tumani
-                                </option>
-
-                                <option value="Muzrabot tumani">Muzrabot tumani</option>
-
-                                <option value="Oltinsoy tumani">Oltinsoy tumani</option>
-
-                                <option value="Sariosiyo tumani">Sariosiyo tumani</option>
-
-                                <option value="Termiz tumani">Termiz tumani</option>
-
-                                <option value="Termiz shahri">Termiz shahri</option>
-
-                                <option value="Uzun tumani">Uzun tumani</option>
-
-                                <option value="Sherobod tumani">Sherobod tumani</option>
-
-                                <option value="Sho&#x27;rchi tumani">Sho&#x27;rchi tumani</option>
-
-                                <option value="Boyovut tumani">Boyovut tumani</option>
-
-                                <option value="Guliston tumani">Guliston tumani</option>
-
-                                <option value="Guliston shahri">Guliston shahri</option>
-
-                                <option value="Mirzaobod tumani">Mirzaobod tumani</option>
-
-                                <option value="Oqoltin tumani">Oqoltin tumani</option>
-
-                                <option value="Sayxunobod tumani">Sayxunobod tumani</option>
-
-                                <option value="Sardoba tumani">Sardoba tumani</option>
-
-                                <option value="Sirdaryo tumani">Sirdaryo tumani</option>
-
-                                <option value="Xavos tumani">Xavos tumani</option>
-
-                                <option value="Shirin shahri">Shirin shahri</option>
-
-                                <option value="Yangiyer shahri">Yangiyer shahri</option>
-
-                                <option value="Angiren shahri">Angiren shahri</option>
-
-                                <option value="Bekabod tumani">Bekabod tumani</option>
-
-                                <option value="Bekabod shahri">Bekabod shahri</option>
-
-                                <option value="Bo&#x27;ka tumani">Bo&#x27;ka tumani</option>
-
-                                <option value="Bo&#x27;stonliq tumani">Bo&#x27;stonliq tumani</option>
-
-                                <option value="Zangiota tumani">Zangiota tumani</option>
-
-                                <option value="Qibray tumani">Qibray tumani</option>
-
-                                <option value="Quyichirchiq tumani">Quyichirchiq tumani</option>
-
-                                <option value="Oqqo&#x27;rg&#x27;on tumani">Oqqo&#x27;rg&#x27;on tumani</option>
-
-                                <option value="Olmaliq shahri">Olmaliq shahri</option>
-
-                                <option value="Ohangaron tumani">Ohangaron tumani</option>
-
-                                <option value="Parkent tumani">Parkent tumani</option>
-
-                                <option value="Piskent tumani">Piskent tumani</option>
-
-                                <option value="O&#x27;rtachirchiq tumani">O&#x27;rtachirchiq tumani</option>
-
-                                <option value="Chinoz tumani">Chinoz tumani</option>
-
-                                <option value="Chirchiq shahri">Chirchiq shahri</option>
-
-                                <option value="Yuqorichirchiq tumani">Yuqorichirchiq tumani</option>
-
-                                <option value="Yangiyo&#x27;l tumani">Yangiyo&#x27;l tumani</option>
-
-                                <option value="Beshariq tumani">Beshariq tumani</option>
-
-                                <option value="Bog&#x27;dod tumani">Bog&#x27;dod tumani</option>
-
-                                <option value="Buvayda tumani">Buvayda tumani</option>
-
-                                <option value="Dang&#x27;ara tumani">Dang&#x27;ara tumani</option>
-
-                                <option value="Yozyovon tumani">Yozyovon tumani</option>
-
-                                <option value="Quva tumani">Quva tumani</option>
-
-                                <option value="Quvasoy shahri">Quvasoy shahri</option>
-
-                                <option value="Qo&#x27;qon shahri">Qo&#x27;qon shahri</option>
-
-                                <option value="Qo&#x27;shtepa tumani">Qo&#x27;shtepa tumani</option>
-
-                                <option value="Marg&#x27;ilon shahri">Marg&#x27;ilon shahri</option>
-
-                                <option value="Oltiariq tumani">Oltiariq tumani</option>
-
-                                <option value="Rishton tumani">Rishton tumani</option>
-
-                                <option value="So&#x27;x tumani">So&#x27;x tumani</option>
-
-                                <option value="Toshloq tumani">Toshloq tumani</option>
-
-                                <option value="Uchko&#x27;prik tumani">Uchko&#x27;prik tumani</option>
-
-                                <option value="O&#x27;zbekiston tumani">O&#x27;zbekiston tumani</option>
-
-                                <option value="Farg&#x27;ona tumani">Farg&#x27;ona tumani</option>
-
-                                <option value="Farg&#x27;ona shahri">Farg&#x27;ona shahri</option>
-
-                                <option value="Furqat tumani">Furqat tumani</option>
-
-                                <option value="Bog&#x27;ot tumani">Bog&#x27;ot tumani</option>
-
-                                <option value="Gurlan tumani">Gurlan tumani</option>
-
-                                <option value="Qo&#x27;shko&#x27;pir tumani">Qo&#x27;shko&#x27;pir tumani</option>
-
-                                <option value="Urganch tumani">Urganch tumani</option>
-
-                                <option value="Urganch shahri">Urganch shahri</option>
-
-                                <option value="Xiva tumani">Xiva tumani</option>
-
-                                <option value="Xazarasp tumani">Xazarasp tumani</option>
-
-                                <option value="Xonqa tumani">Xonqa tumani</option>
-
-                                <option value="Shavot tumani">Shavot tumani</option>
-
-                                <option value="Yangiariq tumani">Yangiariq tumani</option>
-
-                                <option value="Yangibozor tumani">Yangibozor tumani</option>
-
-                                <option value="Bektemir tumani">Bektemir tumani</option>
-
-                                <option value="Mirzo Ulug&#x27;bek tumani">Mirzo Ulug&#x27;bek tumani</option>
-
-                                <option value="Mirobod tumani">Mirobod tumani</option>
-
-                                <option value="Olmazor tumani">Olmazor tumani</option>
-
-                                <option value="Sirg&#x27;ali tumani">Sirg&#x27;ali tumani</option>
-
-                                <option value="Uchtepa tumani">Uchtepa tumani</option>
-
-                                <option value="Yashnobod tumani">Yashnobod tumani</option>
-
-                                <option value="Chilonzor tumani">Chilonzor tumani</option>
-
-                                <option value="Shayxontohur tumani">Shayxontohur tumani</option>
-
-                                <option value="Yunusobod tumani">Yunusobod tumani</option>
-
-                                <option value="Yakkasaroy tumani">Yakkasaroy tumani</option>
-
-                                <option value="Taxiatosh shahri">Taxiatosh shahri</option>
-
-                                <option value="Asaka shahri">Asaka shahri</option>
-
-                                <option value="Bandixon tumani">Bandixon tumani</option>
-
-                                <option value="Ohangaron shahri">Ohangaron shahri</option>
-
-                                <option value="Yangiyo&#x27;l shahri">Yangiyo&#x27;l shahri</option>
-
-                                <option value="Toshkent tumani">Toshkent tumani</option>
-
-                                <option value="Xiva shahri">Xiva shahri</option>
-
-                                <option value="Do&#x27;stlik shahri">Do&#x27;stlik shahri</option>
-
-                                <option value="Yangihayot tumani">Yangihayot tumani</option>
-
-                                <option value="Tuproqqala tumani">Tuproqqala tumani</option>
-
-                                <option value="Davlatobod tumani">Davlatobod tumani</option>
-
-                                <option value="G&#x27;ozg&#x27;on shahri">G&#x27;ozg&#x27;on shahri</option>
-
-                                <option value="Bo&#x27;zatov tumani">Bo&#x27;zatov tumani</option>
-
-                                <option value="Shahrisabz shahri">Shahrisabz shahri</option>
-
-                                <option value="Ko&#x27;kdala tumani">Ko&#x27;kdala tumani</option>
-
-                            </select>
-
-
-                        </p>
-
-
-                        <p>
-                            <label for="id_name">Mahsulot nomi:</label>
-                            <input type="text" name="name" id="id_name">
-
-
-                        </p></div>
-                    <input class="btn btn-primary" type="submit" value="Saqlash">
-                </form>
-
-
-                {% for order in all_orders %}
-                    <div class="card border-dark mt-5">
-                        <div class="card-body">
-                            <h2 class="card-title">{{ order.product.name }} - {{ order.product.price }} so'm</h2>
-                            <h3 class="card-title text-danger">ZAKAZ ID: #{{ order.id }} </h3>
-                            <ul class="text-muted">
-                                <li class="">Reklama tarqatuvchi
-                                    ID: {{ order.thread.user.phone_number|default:"Yo`qkuuu" }}</li>
-                                <li class="">Client: {{ order.user.first_name }} {{ order.user.last_name }} -
-                                    +9989XXXXXXXX
-                                </li>
-                                <li class="">Address: Viloyatni tanlang None</li>
-                                <li class="">Narxi: {{ order.product.price }} so'm <strong>+ 30000</strong> so'm</li>
-
-                                <li class="">Soni: {{ order.quantity }}</li>
-                                <li class="">Vaqti: {{ order.created_at }}</li>
-                                <li class="">Yangilangan vaqti: {{ order.updated_at }}</li>
-                                <li class="">Holati: {{ order.status }}</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                {% endfor %}
-
-
-
-
-                <div class="card-footer bg-light d-flex justify-content-center">
-                    <div>
-                        {% if page_obj.has_previous %}
-                            <a class="btn btn-sm btn-falcon-default me-2"
-                               href="?page={{ page_obj.previous_page_number }}">
-                                <span class="fas fa-chevron-left"></span>
-                            </a>
-                            <a class="btn btn-sm btn-falcon-default me-2"
-                               href="?page={{ page_obj.previous_page_number }}">
-                                {{ page_obj.previous_page_number }}
-                            </a>
-                        {% endif %}
-                        <a class="btn btn-sm btn-falcon-default text-primary me-2" href="#">{{ page_obj.number }}</a>
-                        {% if page_obj.has_next %}
-                            <a class="btn btn-sm btn-falcon-default me-2" href="?page={{ page_obj.next_page_number }}">
-                                {{ page_obj.next_page_number }}
-                            </a>
-                            <a class="btn btn-sm btn-falcon-default me-2" href="?page={{ page_obj.next_page_number }}">
-                                <span class="fas fa-chevron-right"></span>
-                            </a>
-                        {% endif %}
                     </div>
                 </div>
+            {% endfor %}
 
+            <div class="card-footer bg-light d-flex justify-content-center">
+                <div>
+                    {% if page_obj.has_previous %}
+                        <a class="btn btn-sm btn-falcon-default me-2"
+                           href="?page={{ page_obj.previous_page_number }}">
+                            <span class="fas fa-chevron-left"></span>
+                        </a>
+                        <a class="btn btn-sm btn-falcon-default me-2"
+                           href="?page={{ page_obj.previous_page_number }}">
+                            {{ page_obj.previous_page_number }}
+                        </a>
+                    {% endif %}
+                    <a class="btn btn-sm btn-falcon-default text-primary me-2" href="#">{{ page_obj.number }}</a>
+                    {% if page_obj.has_next %}
+                        <a class="btn btn-sm btn-falcon-default me-2" href="?page={{ page_obj.next_page_number }}">
+                            {{ page_obj.next_page_number }}
+                        </a>
+                        <a class="btn btn-sm btn-falcon-default me-2" href="?page={{ page_obj.next_page_number }}">
+                            <span class="fas fa-chevron-right"></span>
+                        </a>
+                    {% endif %}
+                </div>
             </div>
 
-
         </div>
+
+
     </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
-<script src="/static/app/js/regions_filter.js"></script>
-<script src="{% static 'apps/vendors/fontawesome/all.min.js' %}"></script>
-<script>
-    $(function () {
-        $('select').multipleSelect({
-            multiple: true,
-            multipleWidth: 500,
-            maxHeight: 200,
-            maxHeightUnit: 50,
-            filter: true
-        })
-    })
-</script>
-
-</body>
-</html>
+{% endblock %}

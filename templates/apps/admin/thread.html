@@ -9,9 +9,8 @@
                 <br>
                 <h3 class="text-center"> Mening havolalarim </h3>
                 <br>
-                {% for thread in threads %}
-                    <div class="row"    >
-
+                <div class="row">
+                    {% for thread in threads %}
                         <div class="col-sm-4">
                             <div class="card-header">
                                 <!-- <a href="#" onclick="myFunction(52235)" data-request="onDeleteStream"
@@ -20,18 +19,19 @@
                                     data-request-confirm="Siz rostdan ham oqimni o'chirmoqchimisiz?" class="text-danger"
                                     style="float: right"> <span class="fa fa-trash" aria-hidden="true"></span> </a> -->
 
-                                <h5>{{ thread.name   }}</h5>
+                                <h5>{{ thread.name }}</h5>
 
 
                             </div>
                             <div class="card">
                                 <div class="card-body" style="position: relative;">
                                     <div class="form-group">
-                                        <input type="text" value="{{ request.build_absolute_uri }}{{ thread.id }}" readonly=""
+                                        <input type="text" value="{{ request.build_absolute_uri }}/{{ thread.id }}"
+                                               readonly=""
                                                class="ref_link form-control">
                                     </div>
-                                    <button class="copy_ref_bn btn btn-pri      mary"
-                                            style="float:left;  margin-right:9px; margin-top: 9px;">Nusxa ko'chirish
+                                    <button class="copy_ref_bn btn btn-primary"
+                                            style="float:left; margin-right:9px; margin-top: 9px;">Nusxa ko'chirish
                                     </button>
                                     <a href="https://alijahon.uz/oqim/52235" target="_blank"><i
                                             class="fa-solid fa-square-arrow-up-right"
@@ -45,8 +45,9 @@
                             </div>
                             <br>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+
+                </div>
 
             </div>
         </div>

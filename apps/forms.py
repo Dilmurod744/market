@@ -3,7 +3,7 @@ import re
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm, ModelChoiceField
+from django.forms import ModelForm, ModelChoiceField, CharField
 
 from apps.models import User, Order, Thread, Product
 
@@ -69,3 +69,11 @@ class OrderAcceptedModelForm(ModelForm):
     class Meta:
         model = Order
         fields = ['quantity', 'region', 'status', 'comment']
+
+
+class OrderCreateModelForm(ModelForm):
+    name = CharField(max_length=255, label="Ism familya")
+
+    class Meta:
+        model = Order
+        fields = ['name', 'region', 'district', 'quantity', 'phone_number', 'product']

@@ -1,0 +1,29 @@
+{% extends 'apps/operators/operator_main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block operator_content %}
+
+    <div class="col-md-10" style="margin-left: 16%;">
+
+        <br>
+        <br>
+        <div class="container">
+            <div class="col-md-6 col-sm-6 offset-2">
+                <form method="post" action="{% url 'product-add' %}">
+                    {% csrf_token %}
+
+
+                    {% crispy form %}
+                    <br>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Mahsulot qo'shish">
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

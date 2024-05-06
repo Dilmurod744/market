@@ -1,229 +1,109 @@
+{% extends 'apps/operators/operator_main.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>
-        Operatorlar bo'limi
-        - alijahon.uz</title>
-    <link rel="stylesheet" href="{% static 'apps/bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'apps/bootstrap/css/font-awesome.min.css' %}">
-    <link href="{% static 'apps/bootstrap/css/multiple-select.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <style>
-        select {
-            width: 100%;
-        }
-    </style>
+{% block operator_content %}
+    <div class="col-md-10" style="margin-left: 16%;">
 
-</head>
-<body>
-<div>
-    <nav class="navbar navbar-dark bg-dark text-white" style="height: 10%;">
+        <div class="bg-light w-75 m-auto mt-5">
+
+            <form method="GET">
+                <div>
+                    <p>
+                        <label for="id_product">Mahsulot:</label>
+                        <select name="product" id="id_product" multiple>
+                            {% for order in waiting %}
+                                <option value="1">{{ order.product.name }}</option>
+                            {% endfor %}
 
 
-        <div>Buyurtmalar</div>
-        <h4>ID: 721 </h4>
-        <a href="/admin_page" class="btn btn-danger btn-sm">Asosiy panel</a>
-    </nav>
-    <div class="row">
-        <div class="col-md-2 h-70 text-center" style="background-color: #38ffae; padding-right: 0; position:absolute;">
-            <div class="list-group text-light w-100 h-100">
-                <a style="height: 13%" href="/operator/new"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                    </div>
-                    <h6>Yangi buyurtmalar</h6>
-                </a>
-                <a style="height: 13%" href="/operator/ready"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-truck" aria-hidden="true"></i>
-                    </div>
-                    <h6>Dostavka tayyor</h6>
-                </a>
-                <a style="height: 13%" href="/operator/delivering"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-truck" aria-hidden="true"></i>
-                    </div>
-                    <h6>Yetkazilmoqda</h6>
-                </a>
-                <a style="height: 13%" href="/operator/waiting"
-                   class="btn btn-primary list-group-item text-dark mt-1  active ">
-                    <div>
-                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    </div>
-                    <h6>Keyin oladi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/archived"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-archive" aria-hidden="true"></i>
-                    </div>
-                    <h6>Arxivlandi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/broken"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-chain-broken" aria-hidden="true"></i>
-                    </div>
-                    <h6>Nosoz, bekor qilindi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/delivered"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </div>
-                    <h6>Yetkazib berildi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/cancelled"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </div>
-                    <h6>Qaytib keldi</h6>
-                </a>
-                <a style="height: 13%" href="/operator/hold"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </div>
-                    <h6>Hold</h6>
-                </a>
-                <a style="height: 13%" href="/operator/all"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
-                    <div>
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                    </div>
-                    <h6>Hammasi</h6>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-10" style="margin-left: 16%;">
-
-            <div class="bg-light w-75 m-auto mt-5">
-
-                <form method="GET">
-                    <div>
-                        <p>
-                            <label for="id_product">Mahsulot:</label>
-                            <select name="product" id="id_product" multiple>
-                                {% for order in waiting %}
-                                    <option value="1">{{ order.product.name }}</option>
-                                {% endfor %}
+                        </select>
 
 
-                            </select>
+                    </p>
 
 
-                        </p>
+                    <p>
+                        <label for="id_location">Viloyat:</label>
+                        <select name="location" id="id_location" multiple>
+                            <option value="Viloyatni tanlang">Viloyatni tanlang</option>
+
+                            {% for region in regions %}
+                                <option value="">{{ region.name }}</option>
+                            {% endfor %}
+                        </select>
 
 
-                        <p>
-                            <label for="id_location">Viloyat:</label>
-                            <select name="location" id="id_location" multiple>
-                                <option value="Viloyatni tanlang">Viloyatni tanlang</option>
-
-                                {% for region in regions %}
-                                    <option value="">{{ region.name }}</option>
-                                {% endfor %}
-                            </select>
+                    </p>
 
 
-                        </p>
+                    <p>
+                        <label for="id_region">Tuman:</label>
+                        <select name="region" id="id_region" multiple>
+                            {% for district in districts %}
+                                <option value="">{{ district.name }}</option>
+                            {% endfor %}
+                        </select>
 
 
-                        <p>
-                            <label for="id_region">Tuman:</label>
-                            <select name="region" id="id_region" multiple>
-                                {% for district in districts %}
-                                    <option value="">{{ district.name }}</option>
-                                {% endfor %}
-                            </select>
+                    </p>
 
 
-                        </p>
+                    <p>
+                        <label for="id_name">Mahsulot nomi:</label>
+                        <input type="text" name="name" id="id_name">
+                    </p></div>
+                <input class="btn btn-primary" type="submit" value="Saqlash">
+            </form>
 
-
-                        <p>
-                            <label for="id_name">Mahsulot nomi:</label>
-                            <input type="text" name="name" id="id_name">
-                        </p></div>
-                    <input class="btn btn-primary" type="submit" value="Saqlash">
-                </form>
-
-                {% for order in waiting %}
-                    <div class="card border-dark mt-5">
-                        <div class="card-body">
-                            <h2 class="card-title">{{ order.product.name }} - {{ order.product.price }} so'm</h2>
-                            <ul class="text-muted">
-                                <li class="">Client: {{ order.user.first_name }} {{ order.user.last_name }}
-                                    - {{ order.user.phone_number }}</li>
-                                <li class="">Address: tashkent</li>
-                                <li class="">Narxi: {{ order.product.price }} so'm + <p
-                                        style="color: red; display: inline;"> AKSIYA</p></li>
-                                <li class="">Soni: {{ order.quantity }}ta</li>
-                                <li class="">Komment: {{ order.comment }}</li>
-                                <li class="">ID: #{{ order.id }}</li>
-                                <li class="">Vaqti: {{ order.created_at }}</li>
-                                <li class="">Yangilangan vaqti: {{ order.updated_at }}</li>
-                            </ul>
-                            <a href="{% url 'holat_update' order.id %}" class="btn btn-primary">Holatini
-                                o'zgartirish</a>
-                        </div>
-                    </div>
-                {% endfor %}
-
-
-
-
-                <div class="card-footer bg-light d-flex justify-content-center">
-                    <div>
-                        {% if page_obj.has_previous %}
-                            <a class="btn btn-sm btn-falcon-default me-2"
-                               href="?page={{ page_obj.previous_page_number }}">
-                                <span class="fas fa-chevron-left"></span>
-                            </a>
-                            <a class="btn btn-sm btn-falcon-default me-2"
-                               href="?page={{ page_obj.previous_page_number }}">
-                                {{ page_obj.previous_page_number }}
-                            </a>
-                        {% endif %}
-                        <a class="btn btn-sm btn-falcon-default text-primary me-2" href="#">{{ page_obj.number }}</a>
-                        {% if page_obj.has_next %}
-                            <a class="btn btn-sm btn-falcon-default me-2" href="?page={{ page_obj.next_page_number }}">
-                                {{ page_obj.next_page_number }}
-                            </a>
-                            <a class="btn btn-sm btn-falcon-default me-2" href="?page={{ page_obj.next_page_number }}">
-                                <span class="fas fa-chevron-right"></span>
-                            </a>
-                        {% endif %}
+            {% for order in waiting %}
+                <div class="card border-dark mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ order.product.name }} - {{ order.product.price }} so'm</h2>
+                        <ul class="text-muted">
+                            <li class="">Client: {{ order.user.first_name }} {{ order.user.last_name }}
+                                - {{ order.user.phone_number }}</li>
+                            <li class="">Address: tashkent</li>
+                            <li class="">Narxi: {{ order.product.price }} so'm + <p
+                                    style="color: red; display: inline;"> AKSIYA</p></li>
+                            <li class="">Soni: {{ order.quantity }}ta</li>
+                            <li class="">Komment: {{ order.comment }}</li>
+                            <li class="">ID: #{{ order.id }}</li>
+                            <li class="">Vaqti: {{ order.created_at }}</li>
+                            <li class="">Yangilangan vaqti: {{ order.updated_at }}</li>
+                        </ul>
+                        <a href="{% url 'holat_update' order.id %}" class="btn btn-primary">Holatini
+                            o'zgartirish</a>
                     </div>
                 </div>
+            {% endfor %}
 
+
+
+
+            <div class="card-footer bg-light d-flex justify-content-center">
+                <div>
+                    {% if page_obj.has_previous %}
+                        <a class="btn btn-sm btn-falcon-default me-2"
+                           href="?page={{ page_obj.previous_page_number }}">
+                            <span class="fas fa-chevron-left"></span>
+                        </a>
+                        <a class="btn btn-sm btn-falcon-default me-2"
+                           href="?page={{ page_obj.previous_page_number }}">
+                            {{ page_obj.previous_page_number }}
+                        </a>
+                    {% endif %}
+                    <a class="btn btn-sm btn-falcon-default text-primary me-2" href="#">{{ page_obj.number }}</a>
+                    {% if page_obj.has_next %}
+                        <a class="btn btn-sm btn-falcon-default me-2" href="?page={{ page_obj.next_page_number }}">
+                            {{ page_obj.next_page_number }}
+                        </a>
+                        <a class="btn btn-sm btn-falcon-default me-2" href="?page={{ page_obj.next_page_number }}">
+                            <span class="fas fa-chevron-right"></span>
+                        </a>
+                    {% endif %}
+                </div>
             </div>
 
         </div>
     </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
-<script src="/static/app/js/regions_filter.js"></script>
-<script src="{% static 'apps/vendors/fontawesome/all.min.js' %}"></script>
-<script>
-    $(function () {
-        $('select').multipleSelect({
-            multiple: true,
-            multipleWidth: 500,
-            maxHeight: 200,
-            maxHeightUnit: 50,
-            filter: true
-        })
-    })
-</script>
-
-</body>
-</html>
+    
+{% endblock %}

@@ -73,7 +73,7 @@
                             <li class="">Yangilangan vaqti: {{ order.updated_at }}</li>
                         </ul>
 
-                        <a href="/operator/order/1749365" class="btn btn-primary">Holatini
+                        <a href="{% url 'holat_update' order.pk %}" class="btn btn-primary">Holatini
                             o'zgartirish</a>
 
 
@@ -109,5 +109,5 @@
             {% endif %}
         </div>
     </div>
-    
+
 {% endblock %}

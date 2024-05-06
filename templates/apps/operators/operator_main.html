@@ -23,7 +23,7 @@
     <nav class="navbar navbar-dark bg-dark text-white" style="height: 10%;">
 
 
-        <div style="margin-left: 15px;"><a href="/operator/prodcut_add">Zakaz + </a></div>
+        <div style="margin-left: 15px;"><a href="{% url 'product-add' %}">Zakaz + </a></div>
 
 
         <div>Buyurtmalar</div>
@@ -34,70 +34,70 @@
         <div class="col-md-2 h-70 text-center" style="background-color: #38ffae; padding-right: 0; position:absolute;">
             <div class="list-group text-light w-100 h-100">
                 <a style="height: 13%" href="/operator/new"
-                   class="btn btn-primary list-group-item text-dark mt-1  active ">
+                   class="btn btn-primary list-group-item text-dark mt-1  {% if 'new' in request.path %}active{% endif %}  ">
                     <div>
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     </div>
                     <h6>Yangi buyurtmalar</h6>
                 </a>
                 <a style="height: 13%" href="/operator/ready"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
+                   class="btn btn-primary list-group-item text-dark mt-1 {% if 'ready' in request.path %}active{% endif %}">
                     <div>
                         <i class="fa fa-truck" aria-hidden="true"></i>
                     </div>
                     <h6>Dostavka tayyor</h6>
                 </a>
                 <a style="height: 13%" href="/operator/delivering"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
+                   class="btn btn-primary list-group-item text-dark mt-1 {% if 'delivering' in request.path %}active{% endif %}">
                     <div>
                         <i class="fa fa-truck" aria-hidden="true"></i>
                     </div>
                     <h6>Yetkazilmoqda</h6>
                 </a>
                 <a style="height: 13%" href="/operator/waiting"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
+                   class="btn btn-primary list-group-item text-dark mt-1 {% if 'waiting' in request.path %}active{% endif %}">
                     <div>
                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                     </div>
                     <h6>Keyin oladi</h6>
                 </a>
                 <a style="height: 13%" href="/operator/archived"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
+                   class="btn btn-primary list-group-item text-dark mt-1 {% if 'archived' in request.path %}active{% endif %}">
                     <div>
                         <i class="fa fa-archive" aria-hidden="true"></i>
                     </div>
                     <h6>Arxivlandi</h6>
                 </a>
                 <a style="height: 13%" href="/operator/broken"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
+                   class="btn btn-primary list-group-item text-dark mt-1 {% if 'broken' in request.path %}active{% endif %}">
                     <div>
                         <i class="fa fa-chain-broken" aria-hidden="true"></i>
                     </div>
                     <h6>Nosoz, bekor qilindi</h6>
                 </a>
                 <a style="height: 13%" href="/operator/delivered"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
+                   class="btn btn-primary list-group-item text-dark mt-1 {% if 'delivered' in request.path %}active{% endif %}">
                     <div>
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     </div>
                     <h6>Yetkazib berildi</h6>
                 </a>
                 <a style="height: 13%" href="/operator/cancelled"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
+                   class="btn btn-primary list-group-item text-dark mt-1 {% if 'cancelled' in request.path %}active{% endif %}">
                     <div>
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     </div>
                     <h6>Qaytib keldi</h6>
                 </a>
                 <a style="height: 13%" href="/operator/hold"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
+                   class="btn btn-primary list-group-item text-dark mt-1 {% if 'hold' in request.path %}active{% endif %}">
                     <div>
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     </div>
                     <h6>Hold</h6>
                 </a>
                 <a style="height: 13%" href="/operator/all"
-                   class="btn btn-primary list-group-item text-dark mt-1 ">
+                   class="btn btn-primary list-group-item text-dark mt-1 {% if 'all' in request.path %}active{% endif %}">
                     <div>
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     </div>

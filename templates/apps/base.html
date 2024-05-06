@@ -132,7 +132,7 @@
                                             <hr class="mb-0 navbar-vertical-divider"/>
                                             <ul class="nav collapse show" id="dashboard">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" href="/admin_page/market/"
+                                                    <a class="nav-link active" href="{% url 'market' %}"
                                                        aria-expanded="false">
                                                         <div class="d-flex align-items-center"><span
                                                                 class="nav-link-text ps-1">Market</span>
@@ -140,7 +140,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" href="/admin_page/urls"
+                                                    <a class="nav-link active" href="{% url 'thread_list' %}"
                                                        aria-expanded="false">
                                                         <div class="d-flex align-items-center"><span
                                                                 class="nav-link-text ps-1">Oqim</span>
@@ -148,7 +148,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" href="/admin_page/stats"
+                                                    <a class="nav-link active" href="{% url 'statistics' %}"
                                                        aria-expanded="false">
                                                         <div class="d-flex align-items-center"><span
                                                                 class="nav-link-text ps-1">Statistika</span>
@@ -647,10 +647,10 @@
                                         <path fill="currentColor"
                                               d="M528 448H112c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h416c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm64-320c-26.5 0-48 21.5-48 48 0 7.1 1.6 13.7 4.4 19.8L476 239.2c-15.4 9.2-35.3 4-44.2-11.6L350.3 85C361 76.2 368 63 368 48c0-26.5-21.5-48-48-48s-48 21.5-48 48c0 15 7 28.2 17.7 37l-81.5 142.6c-8.9 15.6-28.9 20.8-44.2 11.6l-72.3-43.4c2.7-6 4.4-12.7 4.4-19.8 0-26.5-21.5-48-48-48S0 149.5 0 176s21.5 48 48 48c2.6 0 5.2-.4 7.7-.8L128 416h384l72.3-192.8c2.5.4 5.1.8 7.7.8 26.5 0 48-21.5 48-48s-21.5-48-48-48z"></path>
                                     </svg>
-                                    <!-- <span class="fas fa-crown me-1"></span> Font Awesome fontawesome.com --><span>{{ user.email }}</span></a>
+                                    <!-- <span class="fas fa-crown me-1"></span> Font Awesome fontawesome.com --><span>Adminlar uchun</span></a>
 
-                                {#                                <div class="dropdown-divider"></div>#}
-                                {#                                <a class="dropdown-item" href="#!">Set status</a>#}
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="{% url 'all' %}">Operator</a>
                                 {#                                <a class="dropdown-item" href="pages/user/profile.html">Profile &amp; account</a>#}
                                 {#                                <a class="dropdown-item" href="#!">Feedback</a>#}
 
@@ -795,6 +795,43 @@
                 filter: true
             })
         })
+    </script>
+    <script>
+        var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+        if (isFluid) {
+            var container = document.querySelector('[data-layout]');
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+        }
+    </script>
+    <script>
+        function myFunction(stream_id) {
+            var r = confirm("Siz rostdan ham oqimni o'chirmoqchimisiz?");
+            if (r == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "thread/" + thread_id,
+                    data: {
+                        'csrfmiddlewaretoken': 'UX6SP84ktpOmAgmteATzaoey1J0gmazZpDWBUPlRNlorXtCw1xi2qd2P7eEN5HaZ'
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        window.location.reload();
+                    }
+                });
+                console.log(thread_id);
+            } else {
+                console.log("CANCEL");
+            }
+        }
+
+        $(".card-body .copy_ref_bn").on('click', function () {
+            var copyText = $(this).parent().find('.ref_link').get(0);
+
+            copyText.select();
+            document.execCommand("copy");
+            $(this).text('Nusxa olindi');
+        });
     </script>
     {% block javascript %}
     {% endblock %}

@@ -1,4 +1,5 @@
-<!doctype html>
+{% load static %}
+<!Doctype html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -6,32 +7,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/static/app/bootstrap/css/bootstrap.css">
-    <title>Hello, world!</title>
+    <link rel="stylesheet" href="{% static 'apps/bootstrap/css/bootstrap.css' %}">
+    <title>Holatni o`zgartirish</title>
 </head>
 <body>
 
 <div class="container py-5">
-
+    {% with str="0123456789" %}
+        {% for ch in str %}
+            {{ forloop.counter }}
+            <option value="">(foydalanuvchi tanlagan)</option>
+        {% endfor %}
+    {% endwith %}
     <div class="row">
         <h1>Hammasi to'g'ri kiritilganligiga e'tibor bering!</h1>
-        <p>Customer: <span>None - 998975553812</span></p>
-        <p>TOP ATIRLAR - 77000 so'm</p>
+        <p>Customer: <span>{{ order.user.first_name }} {{ order.user.last_name }}- {{ order.user.phone_number }}</span>
+        </p>
+        <p>{{ order.product.name }} - {{ order.product.price }} so'm</p>
         <p style="color: red; display: inline;">AKSIYA</p>
         <p>Dostavka narxi: 30000</p>
     </div>
 
-    <form method="post">
-        <input type="hidden" name="csrfmiddlewaretoken"
-               value="yJJa7hmrnsMMgiduEdylGFy9F6L8k6IdhFnQNLFVasnqNXmUQnEGyFlDzf8CQjrZ">
+    <form method="post" action="{% url 'holat_update' order.pk %} ">
+        {% csrf_token %}
         <div class="row">
             <div class="col-6">
                 <p>Nechta:</p>
                 <select class="form-select" aria-label="Default select example" name="quantity">
-                    <option value="1">1 ta (foydalanuvchi tanlagan)</option>
+                    <option value="1">{{ order.quantity }} (foydalanuvchi tanlagan)</option>
+                    {#                    <option value="1">1 ta</option>#}
 
                     1
                     <option value="1">1</option>
+
 
                     2
                     <option value="2">2</option>
@@ -66,7 +74,7 @@
             <div class="col-6">
                 <label>
                     Chegirma
-                    <input class="form-control mt-3" name="discount" type="text" value="Yuq">
+                    <input class="form-control mt-3" name="discount" type="text" value="Yo`q">
                 </label>
             </div>
         </div>
@@ -78,36 +86,10 @@
                     <!-- <option value="None" selected>Viloyatni tanlang</option> -->
 
                     <option value="Viloyatni tanlang">Viloyatni tanlang</option>
+                    {% for region in regions %}
+                        <option value="tashkent">{{ region.name }}</option>
+                    {% endfor %}
 
-                    <option value="tashkent">Toshkent shahar</option>
-
-                    <option value="andijon">Andijon viloyati</option>
-
-                    <option value="buxoro">Buxoro viloyati</option>
-
-                    <option
-                            value="fargona">Fargʻona viloyati
-                    </option>
-
-                    <option value="jizzax">Jizzax viloyati</option>
-
-                    <option value="namangan">Namangan viloyati</option>
-
-                    <option value="navoiy">Navoiy viloyati</option>
-
-                    <option value="qashqadaryo">Qashqadaryo viloyati</option>
-
-                    <option value="qoraqalpogiston">Qoraqalpogʻiston Respublika</option>
-
-                    <option value="samarqand">Samarqand viloyati</option>
-
-                    <option value="sirdaryo">Sirdaryo viloyati</option>
-
-                    <option value="surxondaryo">Surxondaryo viloyati</option>
-
-                    <option value="toshkent">Toshkent viloyati</option>
-
-                    <option value="xorazm">Xorazm viloyati</option>
 
                 </select>
             </div>
@@ -117,7 +99,11 @@
                 <p>Manzil: </p>
                 <label for="exampleFormControlInput1" class="form-label w-50">
                     <select class="form-control" name="address" id="region">
-                        <option value="Marg&#x27;ilon shahri">Tanlang</option>
+                        <option value="">Tanlang</option>
+                        {% for district in districts %}
+                            <option value="">{{ district.name }}</option>
+                        {% endfor %}
+
                     </select>
                 </label>
             </div>
@@ -190,13 +176,13 @@
                       rows="3">Oladi</textarea>
         </div>
         <div style="display: flex; justify-content: flex-end;">
-            <a href="/operator/new" type="button" class="btn m-3 btn-secondary">Chiqish</a>
+            <a href="{% url 'new' %}" type="button" class="btn m-3 btn-secondary">Chiqish</a>
             <input type="submit" class="btn m-3 btn-primary" value="Yuborish"/>
         </div>
     </form>
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="/static/app/js/regions.js"></script>
+<script src="app/js/regions.js"></script>
 </body>
 </html> 

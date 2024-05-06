@@ -77,7 +77,7 @@
                             <div class="overflow-hidden">
                                 <div class="position-relative rounded-top overflow-hidden"><a
                                         class="d-block"
-                                        href="{% url 'product_detail' product.id %}"><img
+                                        href="{% url 'product_detail' product.slug %}"><img
                                         class="img-fluid rounded-top"
                                         src="{{ product.images.first.image.url }}"
                                         {% if product.is_new %}
