@@ -1,121 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="robots" content="NONE,NOARCHIVE">
-    <title>403 Forbidden</title>
-    <style type="text/css">
-        html * {
-            padding: 0;
-            margin: 0;
-        }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kuryer listi</title>
+    <link rel="shortcut icon" href="/static/app/icons8-market-square-16.png" type="image/png">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/css/style.bundle.css">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
 
-        body * {
-            padding: 10px 20px;
-        }
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i"
+          rel="stylesheet">
+    <link rel="stylesheet" property="stylesheet" href=" /static/app/modules/system/assets/css/framework.extras.css">
+    <link rel="stylesheet" property="stylesheet" href=" /static/app/css/custom.css">
+</head>
 
-        body * * {
-            padding: 0;
-        }
+<body>
+<div class="container-xl" id="printarea">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <table class="order-table" id="frame">
+                <tbody>
+                <tr>
+                    <td>№</td>
+                    <td>Mijoz</td>
+                    <td>Viloyat</td>
+                    <td>Manzil</td>
+                    <td>Mahsulot</td>
+                    <td>Izoh</td>
+                    <td>Narxi</td>
+                    <td>QR-KOD</td>
+                </tr>
 
-        body {
-            font: small sans-serif;
-            background: #eee;
-            color: #000;
-        }
 
-        body > div {
-            border-bottom: 1px solid #ddd;
-        }
+                <tr style="height: 207px;">
+                    <td style="height: 207px;" colspan="7">
+                        <p>Mahsulot summasi: 0 so'm</p>
+                        <p>Umumiy mahsulot soni: 0 ta</p>
+                        <p>Umumiy buyurtma soni: 0 ta</p>
+                        <p>Kuriyer:&nbsp; -
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-        h1 {
-            font-weight: normal;
-            margin-bottom: .4em;
-        }
+<div class="container-xl mt-3 mb-3">
+    <div class="d-flex justify-content-end">
+        <a href="/operator/currier_page" class="btn btn-primary">Orqaga</a>
+        <a href="#" class="btn btn-primary" onclick="printFunc()">Print</a>
+        <form method="POST" action="/operator/ordered_info/955">
+            <input type="hidden" name="csrfmiddlewaretoken"
+                   value="p3RxEKMY5irpbc1UWF8RUYrmqQsizwjM73pgR3nRLlhT9DmvH4taG3cozZg17q9I">
 
-        h1 span {
-            font-size: 60%;
-            color: #666;
-            font-weight: normal;
-        }
 
-        #info {
-            background: #f6f6f6;
-        }
+            <input type="submit" name="delivering" class="btn btn-primary" value="yetkazilmoqda">
 
-        #info ul {
-            margin: 0.5em 4em;
-        }
+        </form>
+    </div>
+</div>
+<div class="container-xl">
 
-        #info p, #summary p {
-            padding-top: 10px;
-        }
+    <div class="row pl-4" id="printarea1">
 
-        #summary {
-            background: #ffc;
-        }
+    </div>
+</div>
+<div class="container-xl mt-3 mb-3">
+    <a href="#" class="btn btn-primary" onclick="printFunc1()">Print</a>
+</div>
+<script>
 
-        #explanation {
-            background: #eee;
-            border-bottom: 0px none;
-        }
-    </style>
+
+    function printFunc() {
+        var divToPrint = document.getElementById('printarea');
+        var htmlToPrint = '' +
+            '<style type="text/css">' +
+            'table {' +
+            'border: 1px solid black;' +
+            'border-collapse: collapse;' +
+            'font-size: 11px;' +
+            '}' +
+            '.order-table td {' +
+            'border: 1px solid black;' +
+            '</style>';
+        htmlToPrint += divToPrint.outerHTML;
+        newWin = window.open("");
+        // newWin.document.write("<h3 align='center'>Print Page</h3>");
+        newWin.document.write(htmlToPrint);
+        newWin.print();
+        newWin.close();
+    }
+
+    function printFunc1() {
+        var divToPrint = document.getElementById('printarea1');
+        var htmlToPrint = '' +
+            '<style type="text/css">' +
+            'table {' +
+            'border: 1px solid black;' +
+            'border-collapse: collapse;' +
+            'font-size: 11px;' +
+            '}' +
+            '.order-table td {' +
+            'border: 1px solid black;' +
+            '</style>';
+        htmlToPrint += divToPrint.outerHTML;
+        newWin = window.open("");
+        newWin.document.write(htmlToPrint);
+        newWin.print();
+        newWin.close();
+    }
+</script>
+
+
+</body>
+</html>.
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kuryer listi</title>
+    <link rel="shortcut icon" href="/static/app/icons8-market-square-16.png" type="image/png">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/css/style.bundle.css">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i"
+          rel="stylesheet">
+    <link rel="stylesheet" property="stylesheet" href=" /static/app/modules/system/assets/css/framework.extras.css">
+    <link rel="stylesheet" property="stylesheet" href=" /static/app/css/custom.css">
 </head>
 <body>
-<div id="summary">
-    <h1>Taqiqlangan <span>(403)</span></h1>
-    <p>CSRF tekshiruvi amalga oshmadi. So‘rov bekor qilindi.</p>
+<div class="container-xl" id="printarea">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <table class="order-table" id="frame">
+                <tbody>
+                <tr>
+                    <td>№</td>
+                    <td>Mijoz</td>
+                    <td>Viloyat</td>
+                    <td>Manzil</td>
+                    <td>Mahsulot</td>
+                    <td>Izoh</td>
+                    <td>Narxi</td>
+                    <td>QR-KOD</td>
+                </tr>
 
 
+                <tr style="height: 207px;">
+                    <td style="height: 207px;" colspan="7">
+                        <p>Mahsulot summasi: 0 so'm</p>
+                        <p>Umumiy mahsulot soni: 0 ta</p>
+                        <p>Umumiy buyurtma soni: 0 ta</p>
+                        <p>Kuriyer:&nbsp; -
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<div id="info">
-    <h2>Help</h2>
+<div class="container-xl mt-3 mb-3">
+    <div class="d-flex justify-content-end">
+        <a href="/operator/currier_page" class="btn btn-primary">Orqaga</a>
+        <a href="#" class="btn btn-primary" onclick="printFunc()">Print</a>
+        <form method="POST" action="/operator/ordered_info/955">
+            <input type="hidden" name="csrfmiddlewaretoken"
+                   value="p3RxEKMY5irpbc1UWF8RUYrmqQsizwjM73pgR3nRLlhT9DmvH4taG3cozZg17q9I">
 
-    <p>Reason given for failure:</p>
-    <pre>
-    Origin checking failed - null does not match any trusted origins.
-    </pre>
 
+            <input type="submit" name="delivering" class="btn btn-primary" value="yetkazilmoqda">
 
-    <p>In general, this can occur when there is a genuine Cross Site Request Forgery, or when
-        <a
-                href="https://docs.djangoproject.com/en/4.2/ref/csrf/">Django’s
-            CSRF mechanism</a> has not been used correctly. For POST forms, you need to
-        ensure:</p>
-
-    <ul>
-        <li>Your browser is accepting cookies.</li>
-
-        <li>The view function passes a <code>request</code> to the template’s <a
-                href="https://docs.djangoproject.com/en/dev/topics/templates/#django.template.backends.base.Template.render"><code>render</code></a>
-            method.
-        </li>
-
-        <li>In the template, there is a <code>{% csrf_token %}</code> template tag inside each POST form that
-            targets an internal URL.
-        </li>
-
-        <li>If you are not using <code>CsrfViewMiddleware</code>, then you must use
-            <code>csrf_protect</code> on any views that use the <code>csrf_token</code>
-            template tag, as well as those that accept the POST data.
-        </li>
-
-        <li>The form has a valid CSRF token. After logging in in another browser
-            tab or hitting the back button after a login, you may need to reload the
-            page with the form, because the token is rotated after a login.
-        </li>
-    </ul>
-
-    <p>You’re seeing the help section of this page because you have <code>DEBUG =
-        True</code> in your Django settings file. Change that to <code>False</code>,
-        and only the initial error message will be displayed. </p>
-
-    <p>You can customize this page using the CSRF_FAILURE_VIEW setting.</p>
+        </form>
+    </div>
 </div>
+<div class="container-xl">
+
+    <div class="row pl-4" id="printarea1">
+
+    </div>
+</div>
+<div class="container-xl mt-3 mb-3">
+    <a href="#" class="btn btn-primary" onclick="printFunc1()">Print</a>
+</div>
+<script>
+
+
+    function printFunc() {
+        var divToPrint = document.getElementById('printarea');
+        var htmlToPrint = '' +
+            '<style type="text/css">' +
+            'table {' +
+            'border: 1px solid black;' +
+            'border-collapse: collapse;' +
+            'font-size: 11px;' +
+            '}' +
+            '.order-table td {' +
+            'border: 1px solid black;' +
+            '</style>';
+        htmlToPrint += divToPrint.outerHTML;
+        newWin = window.open("");
+        // newWin.document.write("<h3 align='center'>Print Page</h3>");
+        newWin.document.write(htmlToPrint);
+        newWin.print();
+        newWin.close();
+    }
+
+    function printFunc1() {
+        var divToPrint = document.getElementById('printarea1');
+        var htmlToPrint = '' +
+            '<style type="text/css">' +
+            'table {' +
+            'border: 1px solid black;' +
+            'border-collapse: collapse;' +
+            'font-size: 11px;' +
+            '}' +
+            '.order-table td {' +
+            'border: 1px solid black;' +
+            '</style>';
+        htmlToPrint += divToPrint.outerHTML;
+        newWin = window.open("");
+        newWin.document.write(htmlToPrint);
+        newWin.print();
+        newWin.close();
+    }
+</script>
+
+
+</body>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kuryer listi</title>
+    <link rel="shortcut icon" href="/static/app/icons8-market-square-16.png" type="image/png">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/css/style.bundle.css">
+    <link rel="stylesheet" href="/static/app/themes/stock/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i"
+          rel="stylesheet">
+    <link rel="stylesheet" property="stylesheet" href=" /static/app/modules/system/assets/css/framework.extras.css">
+    <link rel="stylesheet" property="stylesheet" href=" /static/app/css/custom.css">
+</head>
+
+<body>
+<div class="container-xl" id="printarea">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <table class="order-table" id="frame">
+                <tbody>
+                <tr>
+                    <td>№</td>
+                    <td>Mijoz</td>
+                    <td>Viloyat</td>
+                    <td>Manzil</td>
+                    <td>Mahsulot</td>
+                    <td>Izoh</td>
+                    <td>Narxi</td>
+                    <td>QR-KOD</td>
+                </tr>
+
+
+                <tr style="height: 207px;">
+                    <td style="height: 207px;" colspan="7">
+                        <p>Mahsulot summasi: 0 so'm</p>
+                        <p>Umumiy mahsulot soni: 0 ta</p>
+                        <p>Umumiy buyurtma soni: 0 ta</p>
+                        <p>Kuriyer:&nbsp; -
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container-xl mt-3 mb-3">
+    <div class="d-flex justify-content-end">
+        <a href="/operator/currier_page" class="btn btn-primary">Orqaga</a>
+        <a href="#" class="btn btn-primary" onclick="printFunc()">Print</a>
+        <form method="POST" action="/operator/ordered_info/955">
+            <input type="hidden" name="csrfmiddlewaretoken"
+                   value="p3RxEKMY5irpbc1UWF8RUYrmqQsizwjM73pgR3nRLlhT9DmvH4taG3cozZg17q9I">
+
+
+            <input type="submit" name="delivering" class="btn btn-primary" value="yetkazilmoqda">
+
+        </form>
+    </div>
+</div>
+<div class="container-xl">
+
+    <div class="row pl-4" id="printarea1">
+
+    </div>
+</div>
+<div class="container-xl mt-3 mb-3">
+    <a href="#" class="btn btn-primary" onclick="printFunc1()">Print</a>
+</div>
+<script>
+
+
+    function printFunc() {
+        var divToPrint = document.getElementById('printarea');
+        var htmlToPrint = '' +
+            '<style type="text/css">' +
+            'table {' +
+            'border: 1px solid black;' +
+            'border-collapse: collapse;' +
+            'font-size: 11px;' +
+            '}' +
+            '.order-table td {' +
+            'border: 1px solid black;' +
+            '</style>';
+        htmlToPrint += divToPrint.outerHTML;
+        newWin = window.open("");
+        // newWin.document.write("<h3 align='center'>Print Page</h3>");
+        newWin.document.write(htmlToPrint);
+        newWin.print();
+        newWin.close();
+    }
+
+    function printFunc1() {
+        var divToPrint = document.getElementById('printarea1');
+        var htmlToPrint = '' +
+            '<style type="text/css">' +
+            'table {' +
+            'border: 1px solid black;' +
+            'border-collapse: collapse;' +
+            'font-size: 11px;' +
+            '}' +
+            '.order-table td {' +
+            'border: 1px solid black;' +
+            '</style>';
+        htmlToPrint += divToPrint.outerHTML;
+        newWin = window.open("");
+        newWin.document.write(htmlToPrint);
+        newWin.print();
+        newWin.close();
+    }
+</script>
+
 
 </body>
 </html>
-
-
-kuryer printi

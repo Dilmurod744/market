@@ -47,12 +47,15 @@ class ProductDetailView(DetailView):
         slug = self.kwargs.get(self.slug_url_kwarg)
         if pk:
             thread = get_object_or_404(Thread.objects.all(), pk=pk)
+            thread.counter += 1
+            thread.save()
             return thread.product
         return get_object_or_404(Product.objects.all(), slug=slug)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.filter(parent_id=None)
+        context['thread_id'] = self.kwargs.get(self.pk_url_kwarg, '')
         return context
 
 
@@ -237,11 +240,6 @@ class ThreadListView(ListView):
     context_object_name = 'threads'
 
 
-class StatisticsListView(ListView):
-    queryset = Product.objects.all()
-    template_name = 'apps/admin/statistics.html'
-
-
 class NewOrderListView(ListView):
     queryset = Order.objects.filter(status=Order.Status.NEW)
     paginate_by = 10
@@ -410,15 +408,16 @@ class NewOrderCreateView(LoginRequiredMixin, CreateView):
         return context
 
 
-class   StatisticListView(ListView):
+class StatisticListView(ListView):
     queryset = Thread.objects.annotate(
         new=Count('orders', filter=Q(orders__status=Order.Status.NEW)),
         archive=Count('orders', filter=Q(orders__status=Order.Status.ARCHIVE)),
         ready_to_delivery=Count('orders', filter=Q(orders__status=Order.Status.READY_TO_DELIVERY)),
+        delivering=Count('orders', filter=Q(orders__status=Order.Status.DELIVERING)),
         delivered=Count('orders', filter=Q(orders__status=Order.Status.DELIVERED)),
         waiting=Count('orders', filter=Q(orders__status=Order.Status.WAITING)),
         cancelled=Count('orders', filter=Q(orders__status=Order.Status.CANCELLED))
-    ).select_related('product')
+    ).select_related('product').all()
     template_name = 'apps/admin/statistics.html'
     context_object_name = 'statistics'
 
@@ -426,16 +425,19 @@ class   StatisticListView(ListView):
         context = super().get_context_data(object_list=object_list, **kwargs)
         queryset = self.get_queryset()
         context.update(**queryset.aggregate(
-            visit_total=Sum(Thread.counter),
-            new_total=Sum(Order.Status.NEW),
-            archived_total=Sum(Order.Status.ARCHIVE),
-            ready_to_delivery_total=Sum(Order.Status.READY_TO_DELIVERY),
-            delivered_total=Sum(Order.Status.DELIVERED),
-            waiting_total=Sum(Order.Status.WAITING),
-            cancelled_total=Sum(Order.Status.CANCELLED),
+            visit_total=Sum('counter'),
+            new_total=Sum('new'),
+            archived_total=Sum('archive'),
+            ready_to_delivery_total=Sum('ready_to_delivery'),
+            delivered_total=Sum('delivered'),
+            delivering_total=Sum('delivering'),
+            waiting_total=Sum('waiting'),
+            cancelled_total=Sum('cancelled'),
         ))
         return context
 
 
-class Currier(TemplateView):
+class Currier(ListView):
+    queryset = User.objects.filter(status=User.Type.CURRIER)
+    context_object_name = 'couriers'
     template_name = 'apps/operators/currier.html'

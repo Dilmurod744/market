@@ -59,7 +59,7 @@
                            {% else %} style="background-color: white; color:black"
                            {% endif %}
                                 {% if user.is_authenticated %}
-                           href="{% url 'wishlist_create' product.id %}" data-bs-toggle="tooltip"
+{#                           href="{% url 'wishlist_create' product.id %}" data-bs-toggle="tooltip"#}
                                 {% else %}
                            href="{% url 'login' %}"
                                 {% endif %}
@@ -189,6 +189,8 @@
                 <input class="form-control" name="name" id="formGroupNameInput" type="text">
             </div>
             <input class="form-control" name="product" type="text" value="{{ product.id }}" hidden>
+            
+            <input class="form-control" name="thread" type="text" value="{{ thread_id }}" hidden>
 
             <div class="mb-4">
                 <label class="form-label" for="formGroupEmailInput">Telefon nomer:</label>

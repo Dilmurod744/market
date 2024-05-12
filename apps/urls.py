@@ -5,7 +5,7 @@ from django.urls import path
 from apps.views import ProductListView, ProductDetailView, LogoutView, RegisterView, ForgotPasswordView, \
     UserTemplateView, WishlistView, OrderFormView, ErrorPage404View, ErrorPage500View, UserUpdateView, \
     ChangePasswordView, OrderedDetailView, WishlistPageView, DeleteWishlistView, MarketView, \
-    MarketAllListView, ThreadFormView, StatisticsListView, ThreadListView, NewOrderListView, \
+    MarketAllListView, ThreadFormView, ThreadListView, NewOrderListView, \
     ReadyOrderListView, DeliveringOrderListView, WaitingOrderListView, ArchivedOrderListView, BrokenOrderListView, \
     DeliveredOrderListView, CancelledOrderListView, HoldOrderListView, AllOrderListView, OrderAcceptedView, \
     HolatUpdateView, StatisticListView, NewOrderCreateView, Currier
@@ -34,7 +34,6 @@ urlpatterns = [
     path('market', MarketView.as_view(), name='market'),
     path('thread', ThreadFormView.as_view(), name='threads'),
     path('thread_list', ThreadListView.as_view(), name='thread_list'),
-    path('statistics', StatisticsListView.as_view(), name='statistics')
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                                                                                         document_root=settings.MEDIA_ROOT)

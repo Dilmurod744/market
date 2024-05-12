@@ -13,15 +13,15 @@
 <body>
 
 <div class="container py-5">
-    {% with str="0123456789" %}
-        {% for ch in str %}
-            {{ forloop.counter }}
-            <option value="">(foydalanuvchi tanlagan)</option>
-        {% endfor %}
-    {% endwith %}
+{#    {% with str="0123456789" %}#}
+{#        {% for ch in str %}#}
+{#            {{ forloop.counter }}#}
+{#            <option value="">(foydalanuvchi tanlagan)</option>#}
+{#        {% endfor %}#}
+{#    {% endwith %}#}
     <div class="row">
         <h1>Hammasi to'g'ri kiritilganligiga e'tibor bering!</h1>
-        <p>Customer: <span>{{ order.user.first_name }} {{ order.user.last_name }}- {{ order.user.phone_number }}</span>
+        <p>Customer: <span>{{ order.name }} {{ order.phone_number }}</span>
         </p>
         <p>{{ order.product.name }} - {{ order.product.price }} so'm</p>
         <p style="color: red; display: inline;">AKSIYA</p>

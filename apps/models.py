@@ -63,6 +63,7 @@ class User(AbstractUser):
     country = CharField(max_length=30)
     is_verified = BooleanField(default=False)
     phone_number = CharField(max_length=25)
+    status = CharField(max_length=25, choices=Type.choices, default=Type.USERS)
 
     class Meta:
         verbose_name = 'Foydalanuvchi'
@@ -197,7 +198,7 @@ class Order(BaseModel):
 
 
 class SiteSettings(Model):
-    delivery_price = DecimalField(max_digits=9, decimal_places=2)
+    delivery_price = DecimalField(max_digits=9, decimal_places=2, default=30_000)
 
 
 class Region(Model):

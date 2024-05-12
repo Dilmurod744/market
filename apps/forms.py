@@ -40,7 +40,7 @@ class UserRegistrationForm(ModelForm):
 class OrderModelForm(ModelForm):
     class Meta:
         model = Order
-        fields = ('name', 'quantity', 'phone_number', 'product')
+        fields = ('name', 'quantity', 'phone_number', 'product', 'thread')
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']

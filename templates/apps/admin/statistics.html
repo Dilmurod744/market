@@ -48,47 +48,47 @@
                         <tbody class="text-center">
                         {% for statistic in statistics %}
                             <tr>
-                                <th>{{ statistic.product.name }}</th>
-                                <th>Genger sovun</th>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <th>{{ statistic.name }}</th>
+                                <th>{{ statistic.product.name}}</th>
+                                <td>{{ statistic.counter }}</td>
+                                <td>{{ statistic.new }}</td>
+                                <td>{{ statistic.ready_to_delivery }}</td>
+                                <td>{{ statistic.delivering }}</td>
+                                <td>{{ statistic.delivered }}</td>
+                                <td>{{ statistic.waiting }}</td>
+                                <td>{{ statistic.cancelled }}</td>
+                                <td>{{ statistic.archived }}</td>
                             </tr>
                         {% endfor %}
 
 
 
 
-                        <tr>
-                            <th>nom</th>
-                            <th>Kapilka</th>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-
-                        <tr class="bg-info">
-                            <td> JAMI</td>
-                            <td></td>
-                            <td> 0</td>
-                            <td> 4</td>
-                            <td> 0</td>
-                            <td> 0</td>
-                            <td> 0</td>
-                            <td> 0</td>
-                            <td> 1</td>
-                            <td> 0</td>
-                        </tr>
+{#                        <tr>#}
+{#                            <th>nom</th>#}
+{#                            <th>Kapilka</th>#}
+{#                            <td>0</td>#}
+{#                            <td>0</td>#}
+{#                            <td>0</td>#}
+{#                            <td>0</td>#}
+{#                            <td>0</td>#}
+{#                            <td>0</td>#}
+{#                            <td>0</td>#}
+{#                            <td>0</td>#}
+{#                        </tr>#}
+{##}
+{#                        <tr class="bg-info">#}
+{#                            <td> JAMI</td>#}
+{#                            <td></td>#}
+{#                            <td> 0</td>#}
+{#                            <td> 4</td>#}
+{#                            <td> 0</td>#}
+{#                            <td> 0</td>#}
+{#                            <td> 0</td>#}
+{#                            <td> 0</td>#}
+{#                            <td> 1</td>#}
+{#                            <td> 0</td>#}
+{#                        </tr>#}
                         </tbody>
                     </table>
                 </div>
