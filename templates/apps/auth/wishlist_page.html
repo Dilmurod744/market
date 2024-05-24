@@ -48,7 +48,7 @@
                         <div class="d-flex align-items-center"><a
                                 href="app/e-commerce/product/product-details.html"><img
                                 class="img-fluid rounded-1 me-3 d-none d-md-block"
-                                src="{% static 'apps/assets/img/products/1.jpg' %}"
+                                src="{{ wishlist.product.images.first.image.url }}"
                                 alt="" width="60"></a>
                             <div class="flex-1">
                                 <h5 class="fs-0"><a class="text-900"

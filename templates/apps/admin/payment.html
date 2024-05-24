@@ -1,3 +1,6 @@
+{% extends 'apps/base.html' %}
+{% load static %}
+{% block content %}
 <div class="card mb-3">
     <div class="card-body">
         <div class="container">
@@ -27,10 +30,10 @@
                                         data-bs-target="#nav-money" type="button" role="tab" aria-controls="nav-money"
                                         aria-selected="true">Pul
                                 </button>
-                                <button class="nav-link" id="nav-coin-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-coin" type="button" role="tab" aria-controls="nav-coin"
-                                        aria-selected="false">Tanga
-                                </button>
+{#                                <button class="nav-link" id="nav-coin-tab" data-bs-toggle="tab"#}
+{#                                        data-bs-target="#nav-coin" type="button" role="tab" aria-controls="nav-coin"#}
+{#                                        aria-selected="false">Tanga#}
+{#                                </button>#}
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
@@ -55,7 +58,7 @@
                                                 id="id_type">
                                             <option value="money">Pul</option>
 
-                                            <option value="coin">Tanga</option>
+{#                                            <option value="coin">Tanga</option>#}
 
                                         </select>
                                     </div>
@@ -83,7 +86,7 @@
                                                 id="id_type">
                                             <option value="money">Pul</option>
 
-                                            <option value="coin">Tanga</option>
+{#                                            <option value="coin">Tanga</option>#}
 
                                         </select>
                                     </div>
@@ -123,3 +126,4 @@
         </div>
     </div>
 </div>
+{% endblock %}

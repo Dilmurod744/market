@@ -1,24 +1,25 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
+from apps.admin.admin import BaseUserAdmin
 from apps.models import User
 from apps.proxies import OperatorProxy, AdminProxy, CurrierProxy, ManageerProxy
 
 
 @admin.register(AdminProxy)
-class AdminProxyModelAdmin(UserAdmin):
+class AdminProxyModelAdmin(BaseUserAdmin):
     list_display = ['username']
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(type=User.Type.ADMIN)
+        return super().get_queryset(request).filter(status=User.Type.ADMIN)
 
 
 @admin.register(CurrierProxy)
-class CurrierProxyModelAdmin(UserAdmin):
+class CurrierProxyModelAdmin(BaseUserAdmin):
     list_display = ['username']
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(type=User.Type.CURRIER)
+        return super().get_queryset(request).filter(status=User.Type.CURRIER)
 
 
 # @admin.register(UserProxy)
@@ -27,16 +28,16 @@ class CurrierProxyModelAdmin(UserAdmin):
 
 
 @admin.register(OperatorProxy)
-class OperatorProxyModelAdmin(UserAdmin):
+class OperatorProxyModelAdmin(BaseUserAdmin):
     list_display = ['username']
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(type=User.Type.OPERATOR)
+        return super().get_queryset(request).filter(status=User.Type.OPERATOR)
 
 
 @admin.register(ManageerProxy)
-class ManageerProxyModelAdmin(UserAdmin):
+class ManageerProxyModelAdmin(BaseUserAdmin):
     list_display = ['username']
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(type=User.Type.MANAGER)
+        return super().get_queryset(request).filter(status=User.Type.MANAGER)

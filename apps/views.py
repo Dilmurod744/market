@@ -1,7 +1,9 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import PasswordChangeView, LogoutView
+from django.core.cache import cache
 from django.db.models import Count, Q, Sum
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
@@ -12,7 +14,6 @@ from apps.forms import UserRegistrationForm, OrderModelForm, UserSettingsForm, T
 from apps.mixins import NotLoginRequiredMixins
 from apps.models import Product, User, SiteSettings, Order, Category, ProductImage, WishList, Thread, Region
 from apps.tasks import send_to_email
-from django.http import JsonResponse
 from .models import District
 
 
@@ -59,19 +60,13 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductImageView(TemplateView):
+class ProductImageTemplateView(TemplateView):
     model = ProductImage
     template_name = 'apps/product/product_detail.html'
     context_object_name = 'product_image'
 
 
-class LogoutView(ListView):
-    model = User
-    template_name = 'apps/auth/logout.html'
-    context_object_name = 'logout'
-
-
-class RegisterView(NotLoginRequiredMixins, FormView):
+class RegisterFormView(NotLoginRequiredMixins, FormView):
     form_class = UserRegistrationForm
     template_name = 'apps/auth/register.html'
     success_url = '/'
@@ -82,11 +77,11 @@ class RegisterView(NotLoginRequiredMixins, FormView):
         return super().form_valid(form)
 
 
-class ForgotPasswordView(TemplateView):
+class ForgotPasswordTemplateView(TemplateView):
     template_name = 'apps/auth/forgot_password.html'
 
 
-class ProductResourceView(ListView):
+class ProductResourceListView(ListView):
     pass
 
 
@@ -102,6 +97,11 @@ class WishlistView(View):
         if not created:
             wishlist.delete()
         return redirect('/')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
+        return context
 
 
 class OrderFormView(FormView):
@@ -127,11 +127,11 @@ class OrderedDetailView(DetailView):
         return context
 
 
-class ErrorPage404View(TemplateView):
+class ErrorPage404TemplateView(TemplateView):
     template_name = 'apps/errors/error_404.html'
 
 
-class ErrorPage500View(TemplateView):
+class ErrorPage500TemplateView(TemplateView):
     template_name = 'apps/errors/error_500.html'
 
 
@@ -177,14 +177,14 @@ class DeleteWishlistView(View):
         return redirect('wishlists')
 
 
-class OperatorView(ListView):
+class OperatorListView(ListView):
     model = Order
     template_name = 'apps/admin/operators.html'
     context_object_name = 'operators'
 
 
-class MarketView(LoginRequiredMixin, ListView):
-    paginate_by = 9
+class MarketListView(LoginRequiredMixin, ListView):
+    paginate_by = 2
     queryset = Product.objects.order_by('-id')
     template_name = 'apps/admin/market.html'
     context_object_name = 'products'
@@ -203,7 +203,7 @@ class MarketView(LoginRequiredMixin, ListView):
 
 
 class MarketAllListView(ListView):
-    paginate_by = 9
+    paginate_by = 3
     queryset = Product.objects.order_by('-id')
     template_name = 'apps/admin/market.html'
     context_object_name = 'products'
@@ -239,9 +239,14 @@ class ThreadListView(ListView):
     template_name = 'apps/admin/thread.html'
     context_object_name = 'threads'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
+        return context
+
 
 class NewOrderListView(ListView):
-    queryset = Order.objects.filter(status=Order.Status.NEW)
+    queryset = Order.objects.filter(status=Order.Status.NEW).order_by('-id')
     paginate_by = 10
     template_name = 'apps/operators/new_order.html'
     context_object_name = 'orders'
@@ -250,6 +255,7 @@ class NewOrderListView(ListView):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['regions'] = Region.objects.all()
         context['districts'] = District.objects.all()
+        context['categories'] = Category.objects.filter(parent_id=None)
         return context
 
 
@@ -370,7 +376,7 @@ class AllOrderListView(ListView):
         return context
 
 
-class OrderAcceptedView(UpdateView):
+class OrderAcceptedUpdateView(UpdateView):
     model = Order
     form_class = OrderAcceptedModelForm
     template_name = 'apps/admin/accepted_order.html'
@@ -423,6 +429,7 @@ class StatisticListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
         queryset = self.get_queryset()
         context.update(**queryset.aggregate(
             visit_total=Sum('counter'),
@@ -441,3 +448,47 @@ class Currier(ListView):
     queryset = User.objects.filter(status=User.Type.CURRIER)
     context_object_name = 'couriers'
     template_name = 'apps/operators/currier.html'
+
+
+class CompetitionListView(ListView):
+    queryset = Thread.objects.all()
+    context_object_name = 'competitions'
+    template_name = 'apps/admin/konkurs.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
+        return context
+
+
+class RequestsTemplateView(TemplateView):
+    template_name = 'apps/admin/requests.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
+        return context
+
+
+class PaymentTemplateView(TemplateView):
+    template_name = 'apps/admin/payment.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
+        return context
+
+
+class LoginBotTemplateView(TemplateView):
+    template_name = 'apps/auth/login_with_telegram_bot.html'
+
+
+class LoginCheckView(View):
+    def post(self, request, *args, **kwargs):
+        code = request.POST.get('code', '')
+        if len(code) != 6:
+            return JsonResponse({'msg': 'error code'}, status=400)
+        phone = cache.get(code)
+        if phone is None:
+            return JsonResponse({'msg': 'expired code'}, status=400)
+        return JsonResponse({'msg': 'ok'}, status=200)

@@ -64,7 +64,7 @@ class ProductAdmin(ImportExportModelAdmin):
 @admin.register(User)
 class BaseUserAdmin(UserAdmin):
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
+        (None, {'fields': ('username', 'password', 'status')}),
         (('Personal info'),
          {'fields': ('first_name', 'last_name', 'email', 'avatar', 'workout', 'country', 'is_verified', 'banner')}),
         (('Permissions'), {
@@ -75,7 +75,7 @@ class BaseUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2', 'avatar',),
+            'fields': ('username', 'password1', 'password2', 'avatar', 'from_working_time', 'to_working_time'),
         }),
     )
     # inlines = (UserImageStackedInline,)
@@ -96,3 +96,4 @@ class SiteSettingsAdmin(ModelAdmin):
 
 
 admin.site.unregister(Group)
+

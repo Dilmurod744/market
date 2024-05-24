@@ -4,7 +4,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, IntegerField, PositiveIntegerField, TextChoices, ForeignKey, JSONField, \
-    BooleanField, TextField, Model, CASCADE, DateTimeField, SlugField
+    BooleanField, TextField, Model, CASCADE, DateTimeField, SlugField, TimeField
 from django.db.models import SET_NULL, DecimalField
 from django.utils.text import slugify
 from django.utils.timezone import now
@@ -53,7 +53,7 @@ class User(AbstractUser):
         OPERATOR = "operator", "Operator"
         MANAGER = "manager", "Menejer"
 
-    type = CharField(max_length=25, choices=Type.choices, default=Type.USERS)
+    # type = CharField(max_length=25, choices=Type.choices, default=Type.USERS)
     intro = TextField(max_length=1024, null=True, blank=True)
     avatar = ResizedImageField(size=[168, 168], upload_to='user_avatars/', null=True, blank=True,
                                default='user_avatars/avatar_default.jpeg')
@@ -64,6 +64,8 @@ class User(AbstractUser):
     is_verified = BooleanField(default=False)
     phone_number = CharField(max_length=25)
     status = CharField(max_length=25, choices=Type.choices, default=Type.USERS)
+    from_working_time = TimeField(null=True, blank=True)  # verbose_name="...dan ishlash")
+    to_working_time = TimeField(null=True, blank=True)  # verbose_name="...gacha ishlash")
 
     class Meta:
         verbose_name = 'Foydalanuvchi'
@@ -109,6 +111,7 @@ class Product(BaseModel):
     shipping = DecimalField(max_digits=9, decimal_places=2)
     quantity = PositiveIntegerField(default=0)
     slug = SlugField(max_length=255, null=True, blank=True, unique=True)
+    payment_for_operator = DecimalField(max_digits=9, decimal_places=2)
     category = ForeignKey('apps.Category', CASCADE, 'categories')
 
     class Meta:
