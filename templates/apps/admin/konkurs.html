@@ -7,26 +7,19 @@
     <div class="card-group mt-2">
         <div class="card overflow-hidden">
             <div class="card-img-top"><img class="img-fluid"
-                                           src="{% static 'apps/assets/img/icons/chrome-logo.png' %}"
+                                           src="{{ competition.photo.url }}"
                                            alt="Konkurs"></div>
             <div class="card-body">
                 <h3 class="card-title">Alijahon.uz</h3>
                 <p class="card-text">
-                <p>Alijahon.uz sayti navbatdagi</p>
-
-                <p>konkursiga start beradi</p>
-
-                <p>15-sentyabrdan start</p>
-
-                <p>xammaga omad tlimiz</p>
-
+                <p>{{ competition.title }}</p>
                 <p>&nbsp;</p></p>
                 <div class="row light">
                     <div class="col-6 col-sm-6 col-lg-4 mb-4">
                         <div class="card text-white bg-info">
                             <div class="card-body">
                                 <div class="card-title">Boshlash</div>
-                                <p class="card-text">15-Sentabr, 2023-yil</p>
+                                <p class="card-text">{{ competition.start_date }}</p>
                             </div>
                         </div>
                     </div>
@@ -34,7 +27,7 @@
                         <div class="card text-white bg-danger">
                             <div class="card-body">
                                 <div class="card-title">Yakunlash</div>
-                                <p class="card-text">15-Fevral, 2024-yil</p>
+                                <p class="card-text">{{ competition.end_date }}</p>
                             </div>
                         </div>
                     </div>

@@ -1,18 +1,22 @@
+from datetime import timedelta
+
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordChangeView, LogoutView
+from django.contrib.auth.views import PasswordChangeView
 from django.core.cache import cache
 from django.db.models import Count, Q, Sum
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views import View
 from django.views.generic import ListView, TemplateView, FormView, DetailView, UpdateView, CreateView
 
 from apps.forms import UserRegistrationForm, OrderModelForm, UserSettingsForm, ThreadModelForm, OrderAcceptedModelForm, \
     OrderCreateModelForm
 from apps.mixins import NotLoginRequiredMixins
-from apps.models import Product, User, SiteSettings, Order, Category, ProductImage, WishList, Thread, Region
+from apps.models import Product, User, SiteSettings, Order, Category, ProductImage, WishList, Thread, Region, \
+    Competition
 from apps.tasks import send_to_email
 from .models import District
 
@@ -127,14 +131,6 @@ class OrderedDetailView(DetailView):
         return context
 
 
-class ErrorPage404TemplateView(TemplateView):
-    template_name = 'apps/errors/error_404.html'
-
-
-class ErrorPage500TemplateView(TemplateView):
-    template_name = 'apps/errors/error_500.html'
-
-
 class UserUpdateView(UpdateView):
     form_class = UserSettingsForm
     template_name = 'apps/auth/profile.html'
@@ -142,6 +138,13 @@ class UserUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['regions'] = Region.objects.all()
+        if region_id := self.request.user.region:
+            context['districts'] = District.objects.filter(region_id=region_id)
+        return context
 
     def form_invalid(self, form):
         return super().form_invalid(form)
@@ -243,6 +246,9 @@ class ThreadListView(ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.filter(parent_id=None)
         return context
+
+    def get_queryset(self):
+        return Thread.objects.all().order_by('-id')
 
 
 class NewOrderListView(ListView):
@@ -415,15 +421,38 @@ class NewOrderCreateView(LoginRequiredMixin, CreateView):
 
 
 class StatisticListView(ListView):
-    queryset = Thread.objects.annotate(
-        new=Count('orders', filter=Q(orders__status=Order.Status.NEW)),
-        archive=Count('orders', filter=Q(orders__status=Order.Status.ARCHIVE)),
-        ready_to_delivery=Count('orders', filter=Q(orders__status=Order.Status.READY_TO_DELIVERY)),
-        delivering=Count('orders', filter=Q(orders__status=Order.Status.DELIVERING)),
-        delivered=Count('orders', filter=Q(orders__status=Order.Status.DELIVERED)),
-        waiting=Count('orders', filter=Q(orders__status=Order.Status.WAITING)),
-        cancelled=Count('orders', filter=Q(orders__status=Order.Status.CANCELLED))
-    ).select_related('product').all()
+
+    def get_queryset(self):
+        period = self.request.GET.get('period', 'all')
+        now = timezone.now()
+
+        if period == 'today':
+            start_date = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        elif period == 'last_day':
+            start_date = (now - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+        elif period == 'weekly':
+            start_date = (now - timedelta(days=7)).replace(hour=0, minute=0, second=0, microsecond=0)
+        elif period == 'monthly':
+            start_date = (now - timedelta(days=30)).replace(hour=0, minute=0, second=0, microsecond=0)
+
+        else:
+            start_date = None
+
+        queryset = Thread.objects.all()
+
+        if start_date:
+            queryset = queryset.filter(orders__created_at__gte=start_date)
+
+        return queryset.annotate(
+            new=Count('orders', filter=Q(orders__status=Order.Status.NEW)),
+            archive=Count('orders', filter=Q(orders__status=Order.Status.ARCHIVE)),
+            ready_to_delivery=Count('orders', filter=Q(orders__status=Order.Status.READY_TO_DELIVERY)),
+            delivering=Count('orders', filter=Q(orders__status=Order.Status.DELIVERING)),
+            delivered=Count('orders', filter=Q(orders__status=Order.Status.DELIVERED)),
+            waiting=Count('orders', filter=Q(orders__status=Order.Status.WAITING)),
+            cancelled=Count('orders', filter=Q(orders__status=Order.Status.CANCELLED))
+        ).select_related('product').all()
+
     template_name = 'apps/admin/statistics.html'
     context_object_name = 'statistics'
 
@@ -448,17 +477,6 @@ class Currier(ListView):
     queryset = User.objects.filter(status=User.Type.CURRIER)
     context_object_name = 'couriers'
     template_name = 'apps/operators/currier.html'
-
-
-class CompetitionListView(ListView):
-    queryset = Thread.objects.all()
-    context_object_name = 'competitions'
-    template_name = 'apps/admin/konkurs.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.filter(parent_id=None)
-        return context
 
 
 class RequestsTemplateView(TemplateView):
@@ -492,3 +510,51 @@ class LoginCheckView(View):
         if phone is None:
             return JsonResponse({'msg': 'expired code'}, status=400)
         return JsonResponse({'msg': 'ok'}, status=200)
+
+
+class MarketTopProductListView(ListView):
+    model = Product
+    paginate_by = 3
+    context_object_name = 'products'
+    template_name = 'apps/admin/market.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_slug = self.request.GET.get('category')
+        if category_slug == 'market/top_products':
+            queryset = self.get_top_products()
+        elif category_slug:
+            queryset = queryset.filter(category__slug=category_slug)
+        return queryset
+
+    def get_top_products(self):
+        today = timezone.now()
+        last_week = today - timedelta(days=7)
+        qs = Order.objects.filter(created_at__gte=last_week, status=Order.Status.DELIVERED)
+        top_products = qs.values('product__id').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:5]
+        product_ids = [item['product__id'] for item in top_products]
+        return Product.objects.filter(id__in=product_ids)
+
+
+class AdminPageTemplateView(TemplateView):
+    template_name = 'apps/admin/admin_main_page.html'
+
+
+class CompetitionTemplateView(TemplateView):
+    template_name = 'apps/admin/konkurs.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent_id=None)
+        context['competition'] = Competition.objects.filter(is_active=True).first()
+        return context
+
+
+def get_districts_by_region(request, region_id):
+    districts = District.objects.filter(region_id=region_id).values('id', 'name')
+    return JsonResponse(list(districts), safe=False)

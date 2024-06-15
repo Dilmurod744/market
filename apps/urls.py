@@ -8,9 +8,10 @@ from apps.views import ProductListView, ProductDetailView, \
     MarketAllListView, ThreadFormView, ThreadListView, NewOrderListView, \
     ReadyOrderListView, DeliveringOrderListView, WaitingOrderListView, ArchivedOrderListView, BrokenOrderListView, \
     DeliveredOrderListView, CancelledOrderListView, HoldOrderListView, AllOrderListView, \
-    HolatUpdateView, StatisticListView, NewOrderCreateView, Currier, CompetitionListView, RequestsTemplateView, \
+    HolatUpdateView, StatisticListView, NewOrderCreateView, Currier, RequestsTemplateView, \
     PaymentTemplateView, LoginBotTemplateView, LoginCheckView, RegisterFormView, ForgotPasswordTemplateView, \
-    ErrorPage404TemplateView, ErrorPage500TemplateView, MarketListView, OrderAcceptedUpdateView
+    MarketListView, OrderAcceptedUpdateView, MarketTopProductListView, AdminPageTemplateView, CompetitionTemplateView, \
+    get_districts_by_region
 from root import settings
 
 urlpatterns = [
@@ -23,8 +24,8 @@ urlpatterns = [
     path('logout', LogoutView.as_view(template_name='apps/auth/logout.html', next_page='login'), name='logout'),
     path('login-check', LoginCheckView.as_view(), name='login_check'),
     path('register', RegisterFormView.as_view(), name='register'),
-    path('profile', UserTemplateView.as_view(), name='user_profile'),
-    path('profile/update', UserUpdateView.as_view(), name='update'),
+    # path('profile', UserTemplateView.as_view(), name='user_profile'),
+    path('profile', UserUpdateView.as_view(), name='user_update'),
     path('forgot-password', ForgotPasswordTemplateView.as_view(), name='forgot_password'),
     path('change-password', ChangePasswordView.as_view(), name='change_password'),
 
@@ -35,11 +36,9 @@ urlpatterns = [
     path('order', OrderFormView.as_view(), name='order'),
     path('ordered/<int:pk>', OrderedDetailView.as_view(), name='ordered'),
 
-    path('error-404', ErrorPage404TemplateView.as_view(), name='error_404'),
-    path('error-500', ErrorPage500TemplateView.as_view(), name='error_500'),
-
     path('market/all', MarketAllListView.as_view(), name='market_all'),
     path('market', MarketListView.as_view(), name='market'),
+    path('market/top-products', MarketTopProductListView.as_view(), name='top_products'),
 
     path('thread', ThreadFormView.as_view(), name='threads'),
     path('thread-list', ThreadListView.as_view(), name='thread_list'),
@@ -62,11 +61,17 @@ urlpatterns += [
     path('operator/holat/<int:pk>', HolatUpdateView.as_view(), name='holat_update'),
     path('operator/currier', Currier.as_view(), name='currier'),
     path('operator/product-add', NewOrderCreateView.as_view(), name='product-add'),
+    path('operator/ajax/get-districts/<int:region_id>', get_districts_by_region, name='get_districts_by_region'),
 
-    path('statistics', StatisticListView.as_view(), name='statistics'),
-    path('competition', CompetitionListView.as_view(), name='competition'),
+    path('statistics/all', StatisticListView.as_view(), name='statistics/all'),
+    path('statistics/today', StatisticListView.as_view(), name='statistics/today'),
+    path('statistics/last_day', StatisticListView.as_view(), name='statistics/last_day'),
+    path('statistics/weekly', StatisticListView.as_view(), name='statistics/weekly'),
+    path('statistics/monthly', StatisticListView.as_view(), name='statistics/monthly'),
+    path('competition', CompetitionTemplateView.as_view(), name='competition'),
     path('requests', RequestsTemplateView.as_view(), name='requests'),
     path('payment', PaymentTemplateView.as_view(), name='payments'),
+    path('admin-main-page', AdminPageTemplateView.as_view(), name='admin_main_page'),
 
 ]
 

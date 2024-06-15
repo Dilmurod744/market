@@ -1,8 +1,9 @@
 import os
 from pathlib import Path
+
+import sentry_sdk
 from dotenv import load_dotenv
 from import_export.formats.base_formats import XLSX, CSV
-import sentry_sdk
 
 load_dotenv('.env')
 

@@ -4,7 +4,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, IntegerField, PositiveIntegerField, TextChoices, ForeignKey, JSONField, \
-    BooleanField, TextField, Model, CASCADE, DateTimeField, SlugField, TimeField
+    BooleanField, TextField, Model, CASCADE, DateTimeField, SlugField, TimeField, DateField
 from django.db.models import SET_NULL, DecimalField
 from django.utils.text import slugify
 from django.utils.timezone import now
@@ -66,9 +66,11 @@ class User(AbstractUser):
     status = CharField(max_length=25, choices=Type.choices, default=Type.USERS)
     from_working_time = TimeField(null=True, blank=True)  # verbose_name="...dan ishlash")
     to_working_time = TimeField(null=True, blank=True)  # verbose_name="...gacha ishlash")
+    region = ForeignKey('apps.Region', CASCADE, null=True, blank=True)
+    district = ForeignKey('apps.District', CASCADE, null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Foydalanuvchi'
+        verbose_name = 'Foydalanuvchi '
         verbose_name_plural = 'Foydalanuvchilar'
 
 
@@ -80,7 +82,7 @@ class Category(MPTTModel):
                               default='user_avatars/banner_default.jpg')
 
     class Meta:
-        verbose_name = 'Kategoriya'
+        verbose_name = 'Kategoriya '
         verbose_name_plural = 'Kategoriyalar'
 
     def __str__(self):
@@ -115,7 +117,7 @@ class Product(BaseModel):
     category = ForeignKey('apps.Category', CASCADE, 'categories')
 
     class Meta:
-        verbose_name = 'Mahsulot'
+        verbose_name = 'Mahsulot '
         verbose_name_plural = 'Mahsulotlar'
 
     def _get_unique_slug(self):
@@ -219,8 +221,22 @@ class District(Model):
         return self.name
 
 
-class Thread(Model):
+class Thread(BaseModel):
     name = CharField(max_length=35)
     counter = IntegerField(default=0)
+    sale = DecimalField(max_digits=9, decimal_places=2, default=0, null=True)
+    additional_benefits = DecimalField(max_digits=9, decimal_places=2, default=0, null=True)
     user = ForeignKey('apps.User', CASCADE, related_name='user_thread')
     product = ForeignKey('apps.Product', CASCADE, related_name='product_thread')
+
+
+class Competition(Model):
+    title = CharField(max_length=255)
+    photo = ResizedImageField(size=[1220, 1220], upload_to='competition_images/', null=True, blank=True)
+    start_date = DateField()
+    end_date = DateField()
+    is_active = BooleanField(default=True)
+
+    class Meta:
+        verbose_name = 'Konkurs '
+        verbose_name_plural = 'Konkurslar'

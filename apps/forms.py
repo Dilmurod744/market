@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm, ModelChoiceField, CharField
 
-from apps.models import User, Order, Thread, Product
+from apps.models import User, Order, Thread, Product, Region, District
 
 
 class UserForm(ModelForm):
@@ -52,9 +52,12 @@ class OrderModelForm(ModelForm):
 
 
 class UserSettingsForm(ModelForm):
+    region = ModelChoiceField(queryset=Region.objects.all(), required=False)
+    district = ModelChoiceField(queryset=District.objects.all(), required=False)
+
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'intro']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'intro', 'region', 'district']
 
 
 class ThreadModelForm(LoginRequiredMixin, ModelForm):

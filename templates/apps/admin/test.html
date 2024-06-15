@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Best Selling Products</title>
+</head>
+<body>
+<h1>Best Selling Products of the Week</h1>
+<ul>
+    {% for product in top_products %}
+        <li>{{ product.name }} - {{ product.category }} - Total Sales: {{ product.total_sales }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

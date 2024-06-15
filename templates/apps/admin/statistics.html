@@ -7,11 +7,17 @@
                 <div class="container border-bottom-4">
                     <div class="header_tab_menu">
                         <div class="header_menu" style="overflow: auto">
-                            <a href="/admin_page/stats?period=today" class="btn btn-default">Bugun</a>
-                            <a href="/admin_page/stats?period=last_day" class="btn btn-default">Kechagi</a>
-                            <a href="/admin_page/stats?period=wekly" class="btn btn-default">Haftalik</a>
-                            <a href="/admin_page/stats?period=monthly" class="btn btn-default">Oylik</a>
-                            <a href="/admin_page/stats?period=all" class="btn btn-default">Hammasi</a>
+                            <a href="{% url 'statistics/all' %}?period=all"
+                               class="btn btn-default {% if 'statistics/all' in request.path %}active{% endif %} ">Hammasi</a>
+                            <a href="{% url 'statistics/today' %}?period=today"
+                               class="btn btn-default {% if 'statistics/today' in request.path %}active{% endif %} ">Bugun</a>
+                            <a href="{% url 'statistics/last_day' %}?period=last_day"
+                               class="btn btn-default {% if 'statistics/last_day' in request.path %}active{% endif %}">Kechagi</a>
+                            <a href="{% url 'statistics/weekly' %}?period=weekly"
+                               class="btn btn-default {% if 'statistics/weekly' in request.path %}active{% endif %}">Haftalik</a>
+                            <a href="{% url 'statistics/monthly' %}?period=monthly"
+                               class="btn btn-default {% if 'statistics/monthly' in request.path %}active{% endif %}">Oylik</a>
+
                         </div>
                     </div>
                 </div>
@@ -35,7 +41,7 @@
                             <td> JAMI</td>
                             <td></td>
                             <td> 0</td>
-                            <td> 4</td>
+                            <td> 1</td>
                             <td> 0</td>
                             <td> 0</td>
                             <td> 0</td>
@@ -49,7 +55,7 @@
                         {% for statistic in statistics %}
                             <tr>
                                 <th>{{ statistic.name }}</th>
-                                <th>{{ statistic.product.name}}</th>
+                                <th>{{ statistic.product.name }}</th>
                                 <td>{{ statistic.counter }}</td>
                                 <td>{{ statistic.new }}</td>
                                 <td>{{ statistic.ready_to_delivery }}</td>
@@ -64,31 +70,31 @@
 
 
 
-{#                        <tr>#}
-{#                            <th>nom</th>#}
-{#                            <th>Kapilka</th>#}
-{#                            <td>0</td>#}
-{#                            <td>0</td>#}
-{#                            <td>0</td>#}
-{#                            <td>0</td>#}
-{#                            <td>0</td>#}
-{#                            <td>0</td>#}
-{#                            <td>0</td>#}
-{#                            <td>0</td>#}
-{#                        </tr>#}
-{##}
-{#                        <tr class="bg-info">#}
-{#                            <td> JAMI</td>#}
-{#                            <td></td>#}
-{#                            <td> 0</td>#}
-{#                            <td> 4</td>#}
-{#                            <td> 0</td>#}
-{#                            <td> 0</td>#}
-{#                            <td> 0</td>#}
-{#                            <td> 0</td>#}
-{#                            <td> 1</td>#}
-{#                            <td> 0</td>#}
-{#                        </tr>#}
+                        {#                        <tr>#}
+                        {#                            <th>nom</th>#}
+                        {#                            <th>Kapilka</th>#}
+                        {#                            <td>0</td>#}
+                        {#                            <td>0</td>#}
+                        {#                            <td>0</td>#}
+                        {#                            <td>0</td>#}
+                        {#                            <td>0</td>#}
+                        {#                            <td>0</td>#}
+                        {#                            <td>0</td>#}
+                        {#                            <td>0</td>#}
+                        {#                        </tr>#}
+                        {##}
+                        {#                        <tr class="bg-info">#}
+                        {#                            <td> JAMI</td>#}
+                        {#                            <td></td>#}
+                        {#                            <td> 0</td>#}
+                        {#                            <td> 4</td>#}
+                        {#                            <td> 0</td>#}
+                        {#                            <td> 0</td>#}
+                        {#                            <td> 0</td>#}
+                        {#                            <td> 0</td>#}
+                        {#                            <td> 1</td>#}
+                        {#                            <td> 0</td>#}
+                        {#                        </tr>#}
                         </tbody>
                     </table>
                 </div>

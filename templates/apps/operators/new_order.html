@@ -20,11 +20,11 @@
 
 
                     <p>
-                        <label for="id_location">Viloyat:</label>
-                        <select name="location" id="id_location" multiple>
+                        <label for="region-select">Viloyat:</label>
+                        <select name="region" id="region-select" multiple>
                             <option value="Viloyatni tanlang">Viloyatni tanlang</option>
                             {% for region in regions %}
-                                <option value="tashkent">{{ region.name }}</option>
+                                <option value="{{ region.id }}">{{ region.name }}</option>
                             {% endfor %}
                         </select>
                     </p>

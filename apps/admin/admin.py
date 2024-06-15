@@ -7,7 +7,7 @@ from django.utils.safestring import mark_safe
 from import_export.admin import ImportExportModelAdmin
 from mptt.admin import DraggableMPTTAdmin
 
-from apps.models import Product, Category, ProductImage, User, SiteSettings
+from apps.models import Product, Category, ProductImage, User, SiteSettings, Competition
 from apps.resources import ProductModelResource
 
 
@@ -95,5 +95,9 @@ class SiteSettingsAdmin(ModelAdmin):
         return False
 
 
-admin.site.unregister(Group)
+@admin.register(Competition)
+class CompetitionAdmin(admin.ModelAdmin):
+    list_display = ['title', 'photo', 'start_date', 'end_date', 'is_active']
 
+
+admin.site.unregister(Group)
